@@ -46,13 +46,4 @@ public class Tuile {
                 espace(2)+tuile[2][2]+espace(2)+tuile[2][1]+espace(2)+tuile[2][0]
         );
     }
-
-    public static void main(String[] args) {
-        Tuile t = new Tuile();
-        t.affiche();
-        t.tournerGauche();
-        t.affiche();
-        t.tournerDroite();
-        t.affiche();
-    }
 }

@@ -8,6 +8,7 @@ public class Sac {
     private static int taille;
 
     public Sac(int taille){
+        this.sac = new Stack<>();
         this.taille = taille;
         for(int i=0;i<taille;i++){
             sac.add(new Tuile());

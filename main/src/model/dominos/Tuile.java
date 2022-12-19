@@ -1,7 +1,5 @@
 package model.dominos;
 
-import java.util.LinkedList;
-
 public class Tuile {
 
     int[][] tuile;
@@ -31,14 +29,21 @@ public class Tuile {
         tuile[3] = tmp;
     }
 
+    public static String espace(int n){
+        String esp = "";
+        for(int i=0;i<n;i++){
+            esp+=" ";
+        }
+        return esp;
+    }
 
     public void affiche(){
         System.out.println(
-                " "+tuile[0][0]+"  "+tuile[0][1]+"  "+tuile[0][2]+"\n"+
-                tuile[3][2]+"       "+tuile[1][0]+"\n"+
-                tuile[3][1]+"       "+tuile[1][1]+"\n"+
-                tuile[3][0]+"       "+tuile[1][2]+"\n"+
-                " "+tuile[2][2]+"  "+tuile[2][1]+"  "+tuile[2][0]
+                espace(2)+tuile[0][0]+espace(2)+tuile[0][1]+espace(2)+tuile[0][2]+"\n"+
+                tuile[3][2]+espace(9)+tuile[1][0]+"\n"+
+                tuile[3][1]+espace(9)+tuile[1][1]+"\n"+
+                tuile[3][0]+espace(9)+tuile[1][2]+"\n"+
+                espace(2)+tuile[2][2]+espace(2)+tuile[2][1]+espace(2)+tuile[2][0]
         );
     }
 

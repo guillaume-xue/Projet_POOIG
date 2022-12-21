@@ -1,18 +1,25 @@
 package model.dominos;
 
-public class Tuile {
+import model.Tuile;
+
+public class Domino_Tuile implements Tuile {
 
     int[][] tuile;
 
-    public Tuile(){
+    public Domino_Tuile(){
         tuile = new int[4][3];
         for(int i=0;i<4;i++){
             for(int j=0;j<3;j++){
-                tuile[i][j] = (int) (Math.random() * (9) + 1);
+                tuile[i][j] = (int) (Math.random() * 4 + 1);
             }
         }
     }
 
+    public Domino_Tuile(int [] t1, int [] t2, int [] t3, int [] t4){
+        tuile = new int[][]{t1, t2, t3, t4};
+    }
+
+    @Override
     public void tournerDroite(){
         int[] tmp = tuile[3];
         for(int i=3;i>0;i--){
@@ -21,6 +28,7 @@ public class Tuile {
         tuile[0] = tmp;
     }
 
+    @Override
     public void tournerGauche(){
         int[] tmp = tuile[0];
         for(int i=1;i<4;i++){

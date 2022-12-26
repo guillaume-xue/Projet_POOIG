@@ -1,5 +1,5 @@
 package gui;
-
+import model.carcassonne.*;
 public class Main {
 
     private Menu menu;
@@ -10,7 +10,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        new Main();
+        //new Main();
+        new AffichageCarc();
     }
 
 }

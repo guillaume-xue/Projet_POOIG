@@ -48,5 +48,13 @@ public enum Carte {
         this.plateau = plateau;
     }
 
+    public PlateauContenu[] getParamPlat(){
+        return plateau;
+    }
+
+    public int getNbCopie(){
+        return montant;
+    }
+
 
 }

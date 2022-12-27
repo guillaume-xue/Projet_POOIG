@@ -33,7 +33,7 @@ public class Menu extends JFrame {
         select.setBackground(new Color(229, 229, 229, 255));
 
         //bouton dominos
-        dominos = new JButton("Dominos");
+        dominos = new JButton("Jeu_Dominos");
         dominos.setVisible(false);
         select.add(dominos);
 

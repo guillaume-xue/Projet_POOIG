@@ -2,6 +2,9 @@ package model.carcassonne.Piece;
 
 import static model.carcassonne.Plateau.PlateauContenu.CHATEAU;
 import static model.carcassonne.Plateau.PlateauContenu.ROUTE;
+
+
+
 import static model.carcassonne.Plateau.PlateauContenu.ABBAYE;
 import static model.carcassonne.Plateau.PlateauContenu.CHAMPS;
 import static model.carcassonne.Plateau.PlateauContenu.AUTRE;
@@ -40,21 +43,20 @@ public enum Carte {
 
     // 102 carte, pour le mode a 6 joueur
 
-    private final PlateauContenu[] plateau;
+    private final PlateauContenu[] donnees;
     private final int montant;
 
     Carte(int montant, PlateauContenu... plateau){
         this.montant = montant;
-        this.plateau = plateau;
+        this.donnees = plateau;
     }
 
     public PlateauContenu[] getParamPlat(){
-        return plateau;
+        return donnees;
     }
 
     public int getNbCopie(){
         return montant;
     }
-
 
 }

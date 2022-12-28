@@ -1,4 +1,4 @@
-package model.carcassonne.Positionnement;
+package model.carcassonne.Piece;
 
 public enum DonneeCarte {
     NORD,
@@ -10,6 +10,5 @@ public enum DonneeCarte {
     SUD_OUEST,
     NORD_OUEST,
     CENTRE;
-
     
 }

@@ -45,7 +45,7 @@ public class Menu extends JFrame {
         body.add(select);
 
         //controleur
-        controler.ButtonPresed();
+        controler.menuButtonPresed();
     }
 
     public JButton getButtonJouer() {

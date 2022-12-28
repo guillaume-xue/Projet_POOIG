@@ -10,7 +10,7 @@ public class Domino_Tuile implements Tuile {
         tuile = new int[4][3];
         for(int i=0;i<4;i++){
             for(int j=0;j<3;j++){
-                tuile[i][j] = (int) (Math.random() * 4 + 1);
+                tuile[i][j] = (int) (Math.random() * 4);
             }
         }
     }
@@ -43,6 +43,14 @@ public class Domino_Tuile implements Tuile {
             esp+=" ";
         }
         return esp;
+    }
+
+    public String toString(){
+        return  " "+tuile[0][0]+""+tuile[0][1]+""+tuile[0][2]+" "+
+                tuile[3][2]+espace(3)+tuile[1][0]+
+                tuile[3][1]+espace(3)+tuile[1][1]+
+                tuile[3][0]+espace(3)+tuile[1][2]+
+                " "+tuile[2][2]+""+tuile[2][1]+""+tuile[2][0]+" ";
     }
 
     public void affiche(){

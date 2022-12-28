@@ -5,6 +5,7 @@ public class Domino_Plateau implements model.Plateau {
     private Domino_Tuile[][] plateau;
     private Domino_Sac sac;
     private int nbManche;
+    private int size;
 
     /*
         Constructeur qui doit créer un tableau de tuile de taille x+2, +2 pour facilité la verife par la suite.
@@ -13,6 +14,7 @@ public class Domino_Plateau implements model.Plateau {
         plateau = new Domino_Tuile[x+2][x+2];
         sac = new Domino_Sac(x*x);
         nbManche = 0;
+        size = x;
     }
 
     public String espace(int n){
@@ -88,7 +90,7 @@ public class Domino_Plateau implements model.Plateau {
         if(this.plateau[x][y] == null){
             if(!(this.plateau[x+1][y+1] != null && this.plateau[x+1][y-1] != null && this.plateau[x-1][y-1] != null && this.plateau[x-1][y+1] != null)){
                 if(addVerifTop(x,y,tuile) && addVerifBottum(x,y,tuile) && addVerifLeft(x,y,tuile) && addVerifRight(x,y,tuile)){
-                    System.out.println("chiffre dif");
+                    System.out.println("chiffre diff");
                     return false;
                 }
                 return true;
@@ -113,6 +115,14 @@ public class Domino_Plateau implements model.Plateau {
         return sac.getSac();
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public Domino_Tuile[][] getPlateau() {
+        return plateau;
+    }
+
     public static void main(String[] args) {
         Domino_Plateau p = new Domino_Plateau(5);
         int [] t1 = {1,2,3};
@@ -129,6 +139,9 @@ public class Domino_Plateau implements model.Plateau {
         p.affiche();
         System.out.println("-------------------------------");
         p.addTuile(4,3,tu3);
+        p.affiche();
+        System.out.println("-------------------------------");
+        p.addTuile(4,4,tu3);
         p.affiche();
     }
 

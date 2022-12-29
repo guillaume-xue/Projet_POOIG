@@ -14,6 +14,7 @@ import model.carcassonne.Plateau.PlateauContenu;
 public enum Carte {
 
     // 72 carte, pour le mode a 4 joueur, format : type(quantité, NORD, EST, SUD, OUEST, NORD-EST, SUD-EST, SUD-OUEST, NORD-OUEST, CENTRE)
+
     Null(0, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE),
     RouteIncurve(9, CHAMPS, CHAMPS, ROUTE, ROUTE, CHAMPS, CHAMPS, CHAMPS, CHAMPS, ROUTE),
     ChateauMur1FaceRouteDroite(3, CHATEAU, ROUTE, ROUTE, CHAMPS, CHAMPS, CHAMPS, CHAMPS, CHAMPS, ROUTE),
@@ -40,8 +41,7 @@ public enum Carte {
     ChateauDiagSansRouteEtEmbleme(2, CHATEAU, CHAMPS, CHAMPS, CHATEAU, CHAMPS, CHAMPS, CHAMPS, CHATEAU, CHAMPS),
     ChateauCoteFaceAFace(3, CHAMPS, CHATEAU, CHAMPS, CHATEAU, CHAMPS, CHAMPS, CHAMPS, CHAMPS, CHAMPS);
     
-
-    // 102 carte, pour le mode a 6 joueur
+    // 102 carte, pour le mode a 6 joueur (à ajouter ultérieurement)
 
     private final PlateauContenu[] donnees;
     private final int montant;

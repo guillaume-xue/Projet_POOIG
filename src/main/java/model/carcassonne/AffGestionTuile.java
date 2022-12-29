@@ -3,10 +3,9 @@ package model.carcassonne;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JMenuBar;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 
-import model.carcassonne.Piece.Carte;
 import model.carcassonne.Piece.CarteComplet;
 import model.carcassonne.Plateau.Game;
 
@@ -21,12 +20,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class AffGestionTuile extends JFrame {
-    JButton rotGauche, valider, rotDroite;
-    ImagePane imagePane;
-    AffichageCarc aff;
-    CarteComplet carte;
-    Game game;
+    private JButton rotGauche, valider, rotDroite, annuler, repiocher;
+    private ImagePane imagePane;
+    private AffichageCarc aff;
+    private CarteComplet carte;
+    private Game game;
 
+    /* Créaction du panneau en charge
+     * de la tuile avant de la poser
+     * sur le plateau.
+     */
     AffGestionTuile(AffichageCarc aff){
         this.aff = aff;
         setTitle("Editeur");
@@ -38,9 +41,16 @@ public class AffGestionTuile extends JFrame {
         valider.setEnabled(true);
         rotDroite = new JButton("Rotation Droite");
         rotDroite.setEnabled(true);
+        annuler = new JButton("Annuler");
+        annuler.setEnabled(true);
+        repiocher = new JButton("Repiocher");
+        repiocher.setEnabled(true);
+
         menu.add(rotGauche);
         menu.add(valider);
         menu.add(rotDroite);
+        menu.add(annuler);
+        menu.add(repiocher);
         setJMenuBar(menu);
 
         imagePane = new ImagePane();
@@ -56,9 +66,10 @@ public class AffGestionTuile extends JFrame {
             (ActionEvent e) -> {
                 if(game.verifPosition()){
                     aff.ajoutTuile(carte);
+                    aff.setModeMouv(false);
                 }else{
                     aff.setModeMouv(false);
-                    JOptionPane.showMessageDialog(null, "Emplacement ou sens de la tuile invalide à cette position");
+                    aff.afficherMessage("Emplacement ou sens de la tuile invalide à cette position");
                 }
             }
         );
@@ -68,12 +79,22 @@ public class AffGestionTuile extends JFrame {
                 nextTuile(carte, carte.getRot());
             }
         );
+        annuler.addActionListener(
+            (ActionEvent e) ->{
+                aff.setModeMouv(false);
+            } 
+        );
+        repiocher.addActionListener(
+            (ActionEvent e) -> {
+                game.repiocher();
+            }
+        );
 
         pack();
         setVisible(true);
     }
 
-    public void changeCarte(CarteComplet carte){
+    /*public void changeCarte(CarteComplet carte){
         String s = "src/main/resources/modeleCarte/" + carte.getCarte().toString() + "0.png";           
             try {
                 //ImageIcon fichier = new ImageIcon(s);
@@ -86,8 +107,9 @@ public class AffGestionTuile extends JFrame {
                 System.out.println(e);
                 System.out.println(s);
             }
-    }
+    }*/
 
+    /* Affichage de la prochaine tuile dans cette fenêtre. */
     public void nextTuile(CarteComplet s, int rot){
         carte = s;
         String m = "src/main/resources/modeleCarte/" + s.getCarte().toString() + rot + ".png";   
@@ -120,7 +142,6 @@ public class AffGestionTuile extends JFrame {
 
         ImagePane(){
             setPreferredSize(new Dimension(250, 250));
-
         }
         
     }

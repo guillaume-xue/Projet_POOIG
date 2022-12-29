@@ -15,13 +15,14 @@ public class Main {
 
     public static void main(String[] args) throws InvocationTargetException, InterruptedException {
         //new Main();
-        SwingUtilities.invokeAndWait(
+        new AffichageCarc(1280, 720, 50);
+        /*SwingUtilities.invokeAndWait(
             new Runnable(){
                 public void run(){
-                    new AffichageCarc(1200, 700, 50);
+                    
                 }
             }
-        );
+        );*/
     }
 
 }

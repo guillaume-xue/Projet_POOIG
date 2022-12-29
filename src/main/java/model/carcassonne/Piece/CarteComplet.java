@@ -12,6 +12,9 @@ public class CarteComplet {
     private Map<DonneeCarte, PlateauContenu> listDonnee;
     private int rotation;
 
+    /* Création de la tuile
+     * avec tout ses données finals.
+     */
     public CarteComplet(Carte carte){
         rotation = 0;
         this.carte = carte;
@@ -21,6 +24,7 @@ public class CarteComplet {
         }
     }
 
+    /* Renvoie ses données sur le côté haut de la tuile. */
     public Map<DonneeCarte, PlateauContenu> getNord(){
         Map<DonneeCarte, PlateauContenu> tmp = new HashMap<>();
         tmp.put(NORD_OUEST, listDonnee.get(NORD_OUEST));
@@ -29,6 +33,7 @@ public class CarteComplet {
         return tmp;
     }
 
+    /* Renvoie ses données sur le côté droit de la tuile. */
     public Map<DonneeCarte, PlateauContenu> getEst(){
         Map<DonneeCarte, PlateauContenu> tmp = new HashMap<>();
         tmp.put(NORD_EST, listDonnee.get(NORD_EST));
@@ -37,6 +42,7 @@ public class CarteComplet {
         return tmp;
     }
 
+    /* Renvoie ses données sur le côté bas de la tuile. */
     public Map<DonneeCarte, PlateauContenu> getSud(){
         Map<DonneeCarte, PlateauContenu> tmp = new HashMap<>();
         tmp.put(SUD_OUEST, listDonnee.get(SUD_OUEST));
@@ -45,6 +51,7 @@ public class CarteComplet {
         return tmp;
     }
 
+    /* Renvoie ses données sur le côté gauche de la tuile. */
     public Map<DonneeCarte, PlateauContenu> getOuest(){
         Map<DonneeCarte, PlateauContenu> tmp = new HashMap<>();
         tmp.put(NORD_OUEST, listDonnee.get(NORD_OUEST));
@@ -53,6 +60,7 @@ public class CarteComplet {
         return tmp;
     }
 
+    /* Renvoie ses données sur les point cardinaux haut de la tuile. */
     public Map<DonneeCarte, PlateauContenu> getValPlus(){
         Map<DonneeCarte, PlateauContenu> tmp = new HashMap<>();
         tmp.put(NORD, listDonnee.get(NORD));
@@ -60,8 +68,9 @@ public class CarteComplet {
         tmp.put(SUD, listDonnee.get(SUD));
         tmp.put(OUEST, listDonnee.get(OUEST));
         return tmp;
-    }    
+    }
 
+    /* Renvoie ses données sur les coins en diagonale haut de la tuile. */
     public Map<DonneeCarte, PlateauContenu> getValDiag(){
         Map<DonneeCarte, PlateauContenu> tmp = new HashMap<>();
         tmp.put(NORD_EST, listDonnee.get(NORD_EST));
@@ -71,6 +80,7 @@ public class CarteComplet {
         return tmp;
     }  
 
+    /* Effectue la rotation vers la Gauche. */
     public void rotationGauche(){
         //Map<DonneeCarte, PlateauContenu> tmp1 = getValPlus();
         //Map<DonneeCarte, PlateauContenu> tmp2 = getValDiag();
@@ -85,8 +95,13 @@ public class CarteComplet {
         listDonnee.replace(SUD_OUEST, listDonnee.get(NORD_OUEST));
         listDonnee.replace(NORD_OUEST, tmp);
         increRota(-1);
+        System.out.println("G");
+        for(Map.Entry<DonneeCarte, PlateauContenu> entry : listDonnee.entrySet()){
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
     }
 
+    /* Effectue la rotation vers la droite. */
     public void rotationDroite(){
         //Map<DonneeCarte, PlateauContenu> tmp1 = getValPlus();
         //Map<DonneeCarte, PlateauContenu> tmp2 = getValDiag();
@@ -101,8 +116,14 @@ public class CarteComplet {
         listDonnee.replace(SUD_OUEST, listDonnee.get(SUD_EST));
         listDonnee.replace(SUD_EST, tmp);
         increRota(1);
+        System.out.println("D");
+        for(Map.Entry<DonneeCarte, PlateauContenu> entry : listDonnee.entrySet()){
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+
     }
 
+    /* Incrémente le compteur de rotation(utile lors de l'affichage graphique). */
     private void increRota(int x){
         if(x == 1){
             rotation++;
@@ -120,19 +141,36 @@ public class CarteComplet {
         return rotation;
     }
 
-    public boolean comparaison(CarteComplet carteBis, int i, int j){
+    /*public boolean comparaison(CarteComplet carteBis, int i, int j){
         if(i==2 && j==4){
             return comparGD(carteBis);
         }else if(i==4 && j == 2){
             return comparDG(carteBis);
         }else if(i==3 && j==1){
             return comparHB(carteBis);
-        }else{
+        }else if(i==1 && j==3){
             return comparBH(carteBis);
         }
-    }
+        return false;
+    }*/
 
+    /* Compare les côtés gauche et droite des deux tuiles concernées,
+     * permet de verifier s'ils sont autorisés à être placées l'une
+     * à côté de l'autre.
+     */
     public boolean comparDG(CarteComplet carteBis){
+        Map<DonneeCarte, PlateauContenu> tmp1 = getOuest();
+        Map<DonneeCarte, PlateauContenu> tmp2 = carteBis.getEst();
+        affichage();
+        carteBis.affichage();
+        if(verifOther(tmp1.get(NORD_OUEST), tmp2.get(NORD_EST))
+        && verifOther(tmp1.get(OUEST), tmp2.get(EST))
+        && verifOther(tmp1.get(SUD_OUEST), tmp2.get(SUD_EST))){
+            return true;
+        }
+        return false;
+    }
+    /*public boolean comparGD(CarteComplet carteBis){
         Map<DonneeCarte, PlateauContenu> tmp1 = getEst();
         Map<DonneeCarte, PlateauContenu> tmp2 = carteBis.getOuest();
         PlateauContenu[] tab = new PlateauContenu[6];
@@ -145,55 +183,47 @@ public class CarteComplet {
             tab[index] = tmp.getValue();
             index++;
         }
+        System.out.println();
         for(int i=0; i<3; i++){
-            if(tab[i] != tab[i+3]){
-                return false;
-            }
-        }
-        return true;
-    }
-    public boolean comparGD(CarteComplet carteBis){
-        Map<DonneeCarte, PlateauContenu> tmp1 = getOuest();
-        Map<DonneeCarte, PlateauContenu> tmp2 = carteBis.getEst();
-        PlateauContenu[] tab = new PlateauContenu[6];
-        int index = 0;
-        for(Map.Entry<DonneeCarte, PlateauContenu> tmp : tmp1.entrySet()){
-            tab[index] = tmp.getValue();
-            index++;
-        }
-        for(Map.Entry<DonneeCarte, PlateauContenu> tmp : tmp2.entrySet()){
-            tab[index] = tmp.getValue();
-            index++;
+            System.out.println(tab[i].toString() + " : " + tab[i+3].toString());
         }
         for(int i=0; i<3; i++){
             if(tab[i] != tab[i+3]){
                 return false;
             }
         }
+        
         return true;
-    }
+    }*/
+
+    /* Même fonction que la précédente mais vérifie le côté haut et bas. */
     public boolean comparHB(CarteComplet carteBis){
         Map<DonneeCarte, PlateauContenu> tmp1 = getSud();
         Map<DonneeCarte, PlateauContenu> tmp2 = carteBis.getNord();
-        PlateauContenu[] tab = new PlateauContenu[6];
-        int index = 0;
-        for(Map.Entry<DonneeCarte, PlateauContenu> tmp : tmp1.entrySet()){
-            tab[index] = tmp.getValue();
-            index++;
+        // affichage();
+        // carteBis.affichage();
+        if(verifOther(tmp1.get(SUD_OUEST), tmp2.get(NORD_OUEST))
+        && verifOther(tmp1.get(SUD), tmp2.get(NORD))
+        && verifOther(tmp1.get(SUD_EST), tmp2.get(NORD_EST))){
+            return true;
         }
-        for(Map.Entry<DonneeCarte, PlateauContenu> tmp : tmp2.entrySet()){
-            tab[index] = tmp.getValue();
-            index++;
-        }
-        for(int i=0; i<3; i++){
-            if(tab[i] != tab[i+3]){
-                return false;
-            }
-        }
-        return true;
+        return false;
         
     }
-    public boolean comparBH(CarteComplet carteBis){
+    
+    /* Fait les comparaisons et vérifie si parmis les données séléctionnées
+     * s'il n'y a pas une donné "AUTRE", équivalent d'un joker.
+     */
+    public boolean verifOther(PlateauContenu p1, PlateauContenu p2){
+        if(p1 == p2){
+            return true;
+        }else if(p1 == PlateauContenu.AUTRE || p2 == PlateauContenu.AUTRE){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    /*public boolean comparBH(CarteComplet carteBis){
         Map<DonneeCarte, PlateauContenu> tmp1 = getNord();
         Map<DonneeCarte, PlateauContenu> tmp2 = carteBis.getSud();
         PlateauContenu[] tab = new PlateauContenu[6];
@@ -206,11 +236,27 @@ public class CarteComplet {
             tab[index] = tmp.getValue();
             index++;
         }
+        System.out.println();
+        for(int i=0; i<3; i++){
+            System.out.println(tab[i].toString() + " : " + tab[i+3].toString());
+        }        
         for(int i=0; i<3; i++){
             if(tab[i] != tab[i+3]){
                 return false;
             }
         }
+
         return true;
+    }*/
+
+    /* Affichage utilier que pendant la conception du jeu. */
+    public void affichage(){
+        System.out.println();
+        for(Map.Entry<DonneeCarte, PlateauContenu> entry : listDonnee.entrySet()){
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
     }
+
+    
+
 }

@@ -25,6 +25,11 @@ public class Domino_Plateau implements model.Plateau {
 
     /* Affiche le Domino_Plateau sur le terminal avec les tuiles poser et les coordonnées. */
     public void affiche(){
+        String tiret = "";
+        for(int i=0;i<12*(plateau.length-2);i++){
+            tiret+="-";
+        }
+        System.out.println(tiret);
         for(int i=1;i<plateau.length-1;i++){
             String l1 = "";
             String l2 = "";
@@ -52,6 +57,7 @@ public class Domino_Plateau implements model.Plateau {
             System.out.println(l4);
             System.out.println(l5);
         }
+        System.out.println(tiret);
     }
 
     public static boolean arrayEquals(int[] t1, int[] t2){
@@ -114,10 +120,6 @@ public class Domino_Plateau implements model.Plateau {
         return sac.nextTuile();
     }
 
-    public boolean sacVide(){
-        return sac.sacVide();
-    }
-
     public int getSize() {
         return size;
     }
@@ -128,16 +130,6 @@ public class Domino_Plateau implements model.Plateau {
 
     public Domino_Tuile[][] getPlateau() {
         return plateau;
-    }
-
-    public static void main(String[] args) {
-        Domino_Plateau p = new Domino_Plateau(5);
-        int [] t1 = {1,2,3};
-        int [] t2 = {3,2,1};
-        Domino_Tuile tu1 = new Domino_Tuile(t1,t1,t1,t1);
-        Domino_Tuile tu2 = new Domino_Tuile(t2,t2,t2,t2);
-        p.affiche();
-
     }
 
 }

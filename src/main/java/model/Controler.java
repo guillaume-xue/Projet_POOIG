@@ -44,7 +44,7 @@ public class Controler {
             }
         });
         dominos.getSkip().addActionListener(e -> {
-            if(!dominos.getPlateau().sacVide()){
+            if(!dominos.getPlateau().sacEmpty()){
                 dominos.setTuile(dominos.getPlateau().nextTuile());
                 dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
                 dominos.repaint();

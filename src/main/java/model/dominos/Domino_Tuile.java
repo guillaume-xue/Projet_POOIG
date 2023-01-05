@@ -45,6 +45,7 @@ public class Domino_Tuile implements Tuile {
         return esp;
     }
 
+    @Override
     public String toString(){
         return  " "+tuile[0][0]+""+tuile[0][1]+""+tuile[0][2]+" "+
                 tuile[3][2]+espace(3)+tuile[1][0]+

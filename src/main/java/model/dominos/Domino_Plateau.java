@@ -4,26 +4,26 @@ public class Domino_Plateau implements model.Plateau {
 
     private Domino_Tuile[][] plateau;
     private Domino_Sac sac;
-    private int nbManche;
     private int size;
 
     /*
-        Constructeur qui doit créer un tableau de tuile de taille x+2, +2 pour facilité la verife par la suite.
+        Constructeur qui doit créer un tableau de tuile de taille (x+2)(x+2), +2 pour facilité la vérification des
+        conditions par la suite.
      */
-    public Domino_Plateau(int x){
-        plateau = new Domino_Tuile[x+2][x+2];
-        sac = new Domino_Sac(x*x);
-        nbManche = 0;
-        size = x;
+    public Domino_Plateau(int n){
+        plateau = new Domino_Tuile[n+2][n+2];
+        int x = (int) (1+Math.random()*n);
+        int y = (int) (1+Math.random()*n);
+        plateau[x][y] = new Domino_Tuile();
+        sac = new Domino_Sac(n*n);
+        size = n;
     }
 
     public String espace(int n){
         return Domino_Tuile.espace(n);
     }
 
-    /*
-        Affiche le Domino_Plateau sur le terminal avec les tuiles poser et les coordonnées.
-     */
+    /* Affiche le Domino_Plateau sur le terminal avec les tuiles poser et les coordonnées. */
     public void affiche(){
         for(int i=1;i<plateau.length-1;i++){
             String l1 = "";
@@ -34,9 +34,9 @@ public class Domino_Plateau implements model.Plateau {
             for(int j=1;j<plateau[i].length-1;j++) {
                 if (plateau[i][j] != null) {
                     l1 += espace(2) + plateau[i][j].tuile[0][0] + espace(2) + plateau[i][j].tuile[0][1] + espace(2) + plateau[i][j].tuile[0][2] + espace(3);
-                    l2 += plateau[i][j].tuile[3][2] + espace(9) + plateau[i][j].tuile[1][0]+ espace(1);
-                    l3 += plateau[i][j].tuile[3][1] + espace(9) + plateau[i][j].tuile[1][1]+ espace(1);
-                    l4 += plateau[i][j].tuile[3][0] + espace(9) + plateau[i][j].tuile[1][2]+ espace(1);
+                    l2 += plateau[i][j].tuile[3][2] + espace(9) + plateau[i][j].tuile[1][0] + espace(1);
+                    l3 += plateau[i][j].tuile[3][1] + espace(9) + plateau[i][j].tuile[1][1] + espace(1);
+                    l4 += plateau[i][j].tuile[3][0] + espace(9) + plateau[i][j].tuile[1][2] + espace(1);
                     l5 += espace(2) + plateau[i][j].tuile[2][2] + espace(2) + plateau[i][j].tuile[2][1] + espace(2) + plateau[i][j].tuile[2][0] + espace(3);
                 } else {
                     l1 += espace(12);
@@ -54,9 +54,9 @@ public class Domino_Plateau implements model.Plateau {
         }
     }
 
-    public boolean sameArray(int[] t1, int[] t2){
+    public static boolean arrayEquals(int[] t1, int[] t2){
         for(int i=0;i<t1.length;i++){
-            if(t1[i] != t2[i]) return false;
+            if(t1[2-i] != t2[i]) return false;
         }
         return true;
     }
@@ -64,59 +64,66 @@ public class Domino_Plateau implements model.Plateau {
     @Override
     public boolean addVerifTop(int x, int y, Domino_Tuile tuile){
         if(plateau[x-1][y] == null) return true;
-        return sameArray(tuile.tuile[0], plateau[x-1][y].tuile[2]);
+        return arrayEquals(tuile.tuile[0], plateau[x-1][y].tuile[2]);
     }
 
     @Override
     public boolean addVerifRight(int x, int y, Domino_Tuile tuile){
         if(plateau[x][y+1] == null) return true;
-        return sameArray(tuile.tuile[1], plateau[x][y+1].tuile[3]);
+        return arrayEquals(tuile.tuile[1], plateau[x][y+1].tuile[3]);
     }
 
     @Override
     public boolean addVerifBottum(int x, int y, Domino_Tuile tuile){
         if(plateau[x+1][y] == null) return true;
-        return sameArray(tuile.tuile[2], plateau[x+1][y].tuile[0]);
+        return arrayEquals(tuile.tuile[2], plateau[x+1][y].tuile[0]);
     }
 
     @Override
     public boolean addVerifLeft(int x, int y, Domino_Tuile tuile){
         if(plateau[x][y-1] == null) return true;
-        return sameArray(tuile.tuile[3], plateau[x][y-1].tuile[1]);
+        return arrayEquals(tuile.tuile[3], plateau[x][y-1].tuile[1]);
     }
 
     @Override
     public boolean addVerif(int x, int y, Domino_Tuile tuile){
-        if(this.plateau[x][y] == null){
-            if(!(this.plateau[x+1][y+1] != null && this.plateau[x+1][y-1] != null && this.plateau[x-1][y-1] != null && this.plateau[x-1][y+1] != null)){
-                if(addVerifTop(x,y,tuile) && addVerifBottum(x,y,tuile) && addVerifLeft(x,y,tuile) && addVerifRight(x,y,tuile)){
+        if(this.plateau[x][y] != null){
+            System.out.println("Il y a déjà une tuile.");
+            return false;
+        }else{
+            if(this.plateau[x][y+1] == null && this.plateau[x][y-1] == null && this.plateau[x+1][y] == null && this.plateau[x-1][y] == null){
+                System.out.println("Pas de tuile au tour.");
+                return false;
+            }else{
+                if(!(addVerifTop(x,y,tuile) && addVerifBottum(x,y,tuile) && addVerifLeft(x,y,tuile) && addVerifRight(x,y,tuile))){
                     System.out.println("chiffre diff");
                     return false;
                 }
                 return true;
-            }else{
-                System.out.println("Pas de tuile au tour.");
-                return false;
             }
-        }else{
-            System.out.println("Il y a déjà une tuile.");
-            return false;
         }
     }
 
     public void addTuile(int x, int y, Domino_Tuile tuile){
-        if(nbManche++ == 0) plateau[x][y] = tuile;
-        else{
-            if(addVerif(x,y,tuile)) plateau[x][y] = tuile;
+        if(addVerif(x,y,tuile)){
+            plateau[x][y] = tuile;
         }
     }
 
-    public Domino_Tuile getTuile(){
-        return sac.getSac();
+    public Domino_Tuile nextTuile(){
+        return sac.nextTuile();
+    }
+
+    public boolean sacVide(){
+        return sac.sacVide();
     }
 
     public int getSize() {
         return size;
+    }
+
+    public boolean sacEmpty(){
+        return sac.getTaille() != 0;
     }
 
     public Domino_Tuile[][] getPlateau() {
@@ -127,22 +134,10 @@ public class Domino_Plateau implements model.Plateau {
         Domino_Plateau p = new Domino_Plateau(5);
         int [] t1 = {1,2,3};
         int [] t2 = {3,2,1};
-        int [] t3 = {1,2,3};
-        int [] t4 = {3,2,1};
-        Domino_Tuile tu1 = new Domino_Tuile(t1,t2,t3,t4);
-        Domino_Tuile tu2 = new Domino_Tuile(t1,t4,t2,t1);
-        Domino_Tuile tu3 = new Domino_Tuile(t4,t4,t2,t1);
-        p.addTuile(3,3,tu1);
+        Domino_Tuile tu1 = new Domino_Tuile(t1,t1,t1,t1);
+        Domino_Tuile tu2 = new Domino_Tuile(t2,t2,t2,t2);
         p.affiche();
-        System.out.println("-------------------------------");
-        p.addTuile(3,4,tu2);
-        p.affiche();
-        System.out.println("-------------------------------");
-        p.addTuile(4,3,tu3);
-        p.affiche();
-        System.out.println("-------------------------------");
-        p.addTuile(4,4,tu3);
-        p.affiche();
+
     }
 
 }

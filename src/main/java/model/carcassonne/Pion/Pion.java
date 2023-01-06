@@ -16,6 +16,7 @@ public class Pion {
         this.id = id;
     }
 
+    /* Met à jour les données du pion */
     public void majPion(DonneeCarte d, int x, int y){
         pos = d;
         posX = x;

@@ -40,10 +40,7 @@ public class SacCarte implements Sac {
         sac.add(c);
         Collections.shuffle(sac);
     }
-
-    public Stack<CarteComplet> getSac(){
-        return sac;
-    }
+    public Stack<CarteComplet> getSac(){return sac;}
 
     
 }

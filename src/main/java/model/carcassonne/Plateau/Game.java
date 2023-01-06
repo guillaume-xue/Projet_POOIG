@@ -102,6 +102,7 @@ public class Game {
         agt.nextTuile(prochainePioche, prochainePioche.getRot());
     }
 
+    /* Initialise les pions de chaque joueurs */
     public void initJoueur(int nbJ){
         compteur = -1;
         listeJ = new ArrayList<Joueur>();
@@ -123,6 +124,7 @@ public class Game {
         }
     }
 
+    /* Confirme l'ajout d'un pion sur le plateau */
     public void addPion(DonneeCarte d){
         if(listeJ.get(compteur).pionDispo()){
             listeJ.get(compteur).addPionOnBoard(d, x, y);
@@ -133,6 +135,7 @@ public class Game {
         }
     }
 
+    /* Indique les coordonnées en X du pion */
     public int getX(DonneeCarte d){
         switch(d){
             case NORD_EST, EST, SUD_EST : return scale-(scale/3);
@@ -141,7 +144,7 @@ public class Game {
             default : return -1;
         }
     }
-
+    /* Indique les coordonnées en Y du pion */
     public int getY(DonneeCarte d){
         switch(d){
             case NORD_EST, NORD, NORD_OUEST : return 0;
@@ -155,7 +158,7 @@ public class Game {
     public void prochaineTuile(){
         prochainePioche = sac.nextTuile();
     }
-
+    /* Permet de définir c'est le tour de quel joueur; */
     public void increCompteur(){
         compteur = (compteur+1)%listeJ.size();
     } 

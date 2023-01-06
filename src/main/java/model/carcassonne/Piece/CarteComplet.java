@@ -83,7 +83,7 @@ public class CarteComplet implements Tuile{
 
     /* Effectue la rotation vers la Gauche. */
     @Override
-    public void tournerGauche(){
+    public void turnLeft(){
         PlateauContenu tmp = listDonnee.get(NORD);
         listDonnee.replace(NORD, listDonnee.get(EST));
         listDonnee.replace(EST, listDonnee.get(SUD));
@@ -99,7 +99,7 @@ public class CarteComplet implements Tuile{
 
     /* Effectue la rotation vers la droite. */
     @Override
-    public void tournerDroite(){
+    public void turnRight(){
         PlateauContenu tmp = listDonnee.get(NORD);
         listDonnee.replace(NORD, listDonnee.get(OUEST));
         listDonnee.replace(OUEST, listDonnee.get(SUD));

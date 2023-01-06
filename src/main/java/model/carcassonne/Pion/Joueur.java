@@ -23,7 +23,7 @@ public class Joueur {
             liste.add(new Pion(c, i));
         }
     }
-
+    /* Indique qu'un pion a été utilisé et met à jour ses coordonnées */
     public void addPionOnBoard(DonneeCarte d, int x, int y){
         liste.get(compteur).majPion(d, x, y);
         usePion();

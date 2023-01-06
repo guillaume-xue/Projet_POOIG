@@ -62,13 +62,10 @@ public class AffichageCarc extends JFrame{
         setVisible(true);
     }
 
-    public int getMilieuY(){
-        return (int) dimension.getHeight()/scale/2;
-    }
-
-    public int getMilieuX(){
-        return (int) dimension.getWidth()/scale/2;
-    }
+    /* Renvoie la position du milieu de terrain en Y */
+    public int getMilieuY(){return (int) dimension.getHeight()/scale/2;}
+    /* En X */
+    public int getMilieuX(){return (int) dimension.getWidth()/scale/2;}
 
     /* Pose automatique la première tuile du jeu
      * au centre du plateau.
@@ -118,8 +115,7 @@ public class AffichageCarc extends JFrame{
         }
     }
 
-
-
+    /* Ajoute l'image du pion sur la tuile séléctionnée */
     public void addPionOnBoard(int x, int y, String s, DonneeCarte d){
         tab[y][x].removeAll();;
         tab[y][x].add(new SacCarteAff(y, x, s, d));

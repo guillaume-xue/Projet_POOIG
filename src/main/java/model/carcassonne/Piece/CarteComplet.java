@@ -82,6 +82,7 @@ public class CarteComplet implements Tuile{
     }  
 
     /* Effectue la rotation vers la Gauche. */
+    @Override
     public void tournerGauche(){
         PlateauContenu tmp = listDonnee.get(NORD);
         listDonnee.replace(NORD, listDonnee.get(EST));
@@ -97,6 +98,7 @@ public class CarteComplet implements Tuile{
     }
 
     /* Effectue la rotation vers la droite. */
+    @Override
     public void tournerDroite(){
         PlateauContenu tmp = listDonnee.get(NORD);
         listDonnee.replace(NORD, listDonnee.get(OUEST));

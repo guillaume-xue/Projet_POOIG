@@ -3,7 +3,9 @@ package model.carcassonne.Piece;
 import java.util.Collections;
 import java.util.Stack;
 
-public class SacCarte {
+import model.Sac;
+
+public class SacCarte implements Sac {
     public static Stack<CarteComplet> sac;
 
     /* Créaction de la pioche avec tout les types
@@ -21,6 +23,16 @@ public class SacCarte {
         Collections.shuffle(sac);
     }
 
+    @Override
+    public CarteComplet nextTuile(){
+        return sac.pop();
+    }
+
+    @Override
+    public boolean sacEmpty(){
+        return sac.size() == 0;
+    }
+
     /* Renvoie la tuile actuel dans la pioche,
      * puis on le mélange avant de repiocher.
      */
@@ -32,4 +44,6 @@ public class SacCarte {
     public Stack<CarteComplet> getSac(){
         return sac;
     }
+
+    
 }

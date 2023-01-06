@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.event.WindowEvent;
+
 import gui.Menu;
 import gui.carcassonne.AffGestionTuile;
 import gui.carcassonne.AffichageCarc;
@@ -29,10 +31,7 @@ public class Controler {
 
     public void menuButtonPresed(){
         menu.getButtonJouer().addActionListener(e -> {
-            menu.getButtonJouer().setVisible(false);
-            menu.getDominos().setVisible(true);
-            menu.getCarcassonne().setVisible(true);
-            menu.validate();
+            menu.switchMenu(menu.getSelect());
         });
         menu.getDominos().addActionListener(e -> {
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -40,12 +39,32 @@ public class Controler {
             });
         });
         menu.getCarcassonne().addActionListener(e -> {
-            new AffichageCarc(1280, 720, 75, 4);
+            menu.switchMenu(menu.getFond1());
+            
         });
+        menu.getJoueur().addActionListener(e -> {
+            menu.switchMenu(menu.getFond2());
+            
+        });
+        menu.getJ2().addActionListener(e -> {
+            new AffichageCarc(1280, 720, 75, 2);
+            menu.setVisible(false);
+            menu.dispose();
+        });
+        menu.getJ3().addActionListener(e -> {
+            new AffichageCarc(1280, 720, 75, 3);
+            menu.setVisible(false);
+            menu.dispose();
+        });
+        menu.getJ4().addActionListener(e -> {
+            new AffichageCarc(1280, 720, 75, 4);
+            menu.setVisible(false);
+            menu.dispose();
+        });
+        
     }
 
     public void domimosButtunPresed(){
-
         dominos.getTurnLeft().addActionListener(e -> {
             dominos.getTuile().tournerGauche();
             dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());

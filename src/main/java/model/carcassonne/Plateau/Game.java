@@ -153,9 +153,9 @@ public class Game {
 
     /* Pioche la prochaine tuile. */
     public void prochaineTuile(){
-        prochainePioche = sac.getSac().pop();
+        prochainePioche = sac.nextTuile();
     }
-    
+
     public void increCompteur(){
         compteur = (compteur+1)%listeJ.size();
     } 

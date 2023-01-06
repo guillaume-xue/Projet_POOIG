@@ -118,6 +118,16 @@ public class AffichageCarc extends JFrame{
         }
     }
 
+
+
+    public void addPionOnBoard(int x, int y, String s, DonneeCarte d){
+        tab[y][x].removeAll();;
+        tab[y][x].add(new SacCarteAff(y, x, s, d));
+        invalidate();
+        validate();
+        repaint();
+    }
+
     /* Pose la tuile qui était stocké dans la fenêtre de l'éditeur. */
     public void ajoutTuile(CarteComplet carteBis){
         tab[game.getY()][game.getX()].removeAll();
@@ -129,14 +139,6 @@ public class AffichageCarc extends JFrame{
 
     }
 
-    public void addPionOnBoard(int x, int y, String s, DonneeCarte d){
-        tab[y][x].removeAll();;
-        tab[y][x].add(new SacCarteAff(y, x, s, d));
-        invalidate();
-        validate();
-        repaint();
-    }
-
     /* Empêche tout autre action après qu'on ait séléctionné
      * l'emplacement où l'on veut poser la tuile (sauf si on l'annule).
      */
@@ -144,15 +146,13 @@ public class AffichageCarc extends JFrame{
     public boolean getModeMouv(){return modePlacement;}
 
     public class SacCarteAff extends JPanel implements MouseInputListener{
-        int x, y, width, height;
-        CarteComplet tmp;
-        String location;
+        private int x, y, width, height;
+        private CarteComplet tmp;
 
         /* Ajout de la tuile. */
         SacCarteAff(int y, int x){
             tmp = game.getPP();
             String s = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + tmp.getCarte().toString() + tmp.getRot() + ".png";
-            location = s;
             this.x = x;
             this.y = y;
             width = scale;
@@ -173,7 +173,6 @@ public class AffichageCarc extends JFrame{
             tmp = game.getPP();
             String s = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + tmp.getCarte().toString() + tmp.getRot() + ".png";
             String sbis = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + couleur + ".png";
-            location = s;
             this.x = x;
             this.y = y;
             width = scale;

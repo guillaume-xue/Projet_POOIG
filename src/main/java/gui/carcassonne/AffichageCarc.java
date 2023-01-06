@@ -162,8 +162,7 @@ public class AffichageCarc extends JFrame {
         /* Ajout de la tuile. */
         SacCarteAff(int y, int x) {
             tmp = game.getPP();
-            String s = "Projet_POOIG/src/main/resources/modeleCarte/" + tmp.getCarte().toString() + tmp.getRot()
-                    + ".png";
+            String s = "src/main/resources/modeleCarte/" + tmp.getCarte().toString() + tmp.getRot() + ".png";
             this.x = x;
             this.y = y;
             width = scale;
@@ -182,9 +181,8 @@ public class AffichageCarc extends JFrame {
         /* Ajout de la tuile. fusionnée avec le pion */
         SacCarteAff(int y, int x, String couleur, DonneeCarte d) {
             tmp = game.getPP();
-            String s = "Projet_POOIG/src/main/resources/modeleCarte/" + tmp.getCarte().toString() + tmp.getRot()
-                    + ".png";
-            String sbis = "Projet_POOIG/src/main/resources/modeleCarte/" + couleur + ".png";
+            String s = "src/main/resources/modeleCarte/" + tmp.getCarte().toString() + tmp.getRot() + ".png";
+            String sbis = "src/main/resources/modeleCarte/" + couleur + ".png";
             this.x = x;
             this.y = y;
             width = scale;
@@ -211,7 +209,7 @@ public class AffichageCarc extends JFrame {
             this.y = y;
             width = scale;
             height = scale;
-            String s = "Projet_POOIG/src/main/resources/modeleCarte/" + tmp.getCarte().toString();
+            String s = "src/main/resources/modeleCarte/" + tmp.getCarte().toString();
             if (b) {
                 s += "0.png";
             } else {

@@ -80,7 +80,7 @@ public class Controler {
             }
         });
         dominos.getSkip().addActionListener(e -> {
-            if (!dominos.getPlateau().sacEmpty()) {
+            if (dominos.getPlateau().sacEmpty()) {
                 dominos.setTuile(dominos.getPlateau().nextTuile());
                 refreshDominos();
             }

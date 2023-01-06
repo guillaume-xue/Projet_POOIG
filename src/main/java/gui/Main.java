@@ -14,16 +14,8 @@ public class Main {
         this.menu.setVisible(true);
     }
 
-    public static void main(String[] args) throws InvocationTargetException, InterruptedException {
-        //new Main();
-        new AffichageCarc(1280, 720, 75, 4);
-        /*SwingUtilities.invokeAndWait(
-            new Runnable(){
-                public void run(){
-                    
-                }
-            }
-        );*/
+    public static void main(String[] args){
+        new Main();
     }
 
 }

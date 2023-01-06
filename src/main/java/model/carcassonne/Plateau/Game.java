@@ -37,7 +37,6 @@ public class Game {
         controler.carcassonneButtunPresed();
 
         //agt.nextTuile(prochainePioche, prochainePioche.getRot());
-
     }
 
     /* Met à jour la prochaine tuile pioché et actualise

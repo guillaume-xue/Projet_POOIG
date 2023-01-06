@@ -34,6 +34,14 @@ public class Controler {
             menu.getCarcassonne().setVisible(true);
             menu.validate();
         });
+        menu.getDominos().addActionListener(e -> {
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {new Jeu_Dominos();}
+            });
+        });
+        menu.getCarcassonne().addActionListener(e -> {
+            new AffichageCarc(1280, 720, 75, 4);
+        });
     }
 
     public void domimosButtunPresed(){

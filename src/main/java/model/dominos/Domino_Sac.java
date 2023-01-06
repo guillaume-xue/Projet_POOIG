@@ -28,7 +28,4 @@ public class Domino_Sac implements Sac {
         return taille != 0;
     }
 
-    public int getTaille() {
-        return taille;
-    }
 }

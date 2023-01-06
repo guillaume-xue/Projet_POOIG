@@ -3,17 +3,25 @@ package model.carcassonne;
 import java.awt.GridLayout;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import java.awt.Color;
+import java.awt.Component;
+
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import javax.swing.event.MouseInputListener;
 import java.awt.Image;
 
@@ -31,10 +39,10 @@ public class AffichageCarc extends JFrame{
     private JPanel[][] tab;
 
     /* Création du plateau */
-    public AffichageCarc(int x, int y, int scale){
+    public AffichageCarc(int x, int y, int scale, int nbJoueur){
         this.scale = scale;
         dimension = new Dimension(((x/scale)*scale), ((y/scale)*scale));
-        setPreferredSize(dimension);
+        setSize(dimension);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout((int) dimension.getHeight()/scale, (int) dimension.getWidth()/scale));
         //setLayout(new GridLayout(3, 2));
@@ -49,7 +57,7 @@ public class AffichageCarc extends JFrame{
         }
 
         gestion = new AffGestionTuile(this);
-        game = new Game(this, gestion);
+        game = new Game(this, gestion, nbJoueur);
         gestion.setGame(game);
 
         
@@ -77,8 +85,8 @@ public class AffichageCarc extends JFrame{
     public void tuileCentrale(){
         tab[getMilieuY()][getMilieuX()].add(new SacCarteAff(getMilieuY(), getMilieuX()));
         caseDispo(getMilieuY(), getMilieuX());
-        System.out.println("Centre");
-        game.getPP().affichage();
+        //System.out.println("Centre");
+        //game.getPP().affichage();
         game.prochainTour();
     }
     
@@ -137,7 +145,7 @@ public class AffichageCarc extends JFrame{
         invalidate();
         validate();
         repaint();
-        game.prochainTour();
+
     }
 
     /* Empêche tout autre action après qu'on ait séléctionné
@@ -147,14 +155,28 @@ public class AffichageCarc extends JFrame{
         modePlacement = b;
     }
 
+    public boolean getModeMouv(){
+        return modePlacement;
+    }
+
+    public void addPionOnBoard(int x, int y, String s, DonneeCarte d){
+        tab[y][x].removeAll();;
+        tab[y][x].add(new SacCarteAff(y, x, s, d));
+        invalidate();
+        validate();
+        repaint();
+    }
+
     public class SacCarteAff extends JPanel implements MouseInputListener{
         int x, y, width, height;
         CarteComplet tmp;
+        String location;
 
         /* Création graphique de la tuile. */
         SacCarteAff(int y, int x){
             tmp = game.getPP();
-            String s = "src/main/resources/modeleCarte/" + tmp.getCarte().toString() + tmp.getRot() + ".png";
+            String s = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + tmp.getCarte().toString() + tmp.getRot() + ".png";
+            location = s;
             this.x = x;
             this.y = y;
             width = scale;
@@ -164,13 +186,45 @@ public class AffichageCarc extends JFrame{
                 
                 fichier = resizeImage(fichier, width, height);
                 add(new JLabel(new ImageIcon(fichier)));
+
+                //this.setBorder(BorderFactory.createLineBorder(Color.black,3));
+            
                 
-                this.setBounds(0, 0, width, height);
+                //this.setBounds(0, 0, width, height);
 
                 addMouseListener(this);
             } catch (Exception e) {
-                System.out.println(e);
-                System.out.println(s);
+            }
+        }
+
+        /* Création graphique de la tuile. */
+        SacCarteAff(int y, int x, String couleur, DonneeCarte d){
+            tmp = game.getPP();
+            String s = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + tmp.getCarte().toString() + tmp.getRot() + ".png";
+            String sbis = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + couleur + ".png";
+            location = s;
+            this.x = x;
+            this.y = y;
+            width = scale;
+            height = scale;   
+            try {
+
+                BufferedImage fichier = ImageIO.read(new File(s));
+                BufferedImage fichierbis = ImageIO.read(new File(sbis));
+
+                fichier = resizeImage(fichier, width, height);
+                fichierbis = resizeImage(fichierbis, width/3, height/3);
+
+                add(new JLabel(new ImageIcon(fusion(fichier, fichierbis, d))));
+
+                //this.setBorder(BorderFactory.createLineBorder(Color.black,3));
+            
+                
+                //this.setBounds(0, 0, width, height);
+
+                addMouseListener(this);
+
+            } catch (Exception e) {
             }
         }
 
@@ -181,7 +235,7 @@ public class AffichageCarc extends JFrame{
             this.y = y;
             width = scale;
             height = scale;
-            String s = "src/main/resources/modeleCarte/" + tmp.getCarte().toString();
+            String s = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + tmp.getCarte().toString();
             if(b){
                 s+="0.png";
             }else{
@@ -199,16 +253,40 @@ public class AffichageCarc extends JFrame{
 
         }
 
+        public BufferedImage fusion(BufferedImage img1, BufferedImage img2, DonneeCarte d) throws IOException{
+            BufferedImage newImage = new BufferedImage(scale, scale, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = newImage.createGraphics();
+            g2.drawImage(img1, null, 0, 0);
+            g2.drawImage(img2, null, game.getX(d), game.getY(d));
+            g2.dispose();
+            //File file = new File("Projet_POOIG\\src\\main\\resources\\modeleCarte\\bleu.png");
+            //ImageIO.write(newImage, "png", file);
+            return newImage;
+
+        }
+
         public CarteComplet getCarteComplet(){
             return tmp;
+        }
+
+        public void createBorder(){
+            //Border bord = BorderFactory.createMatteBorder(1,1,1,1,Color.red);
+            Border bord = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
+            setBorder(bord);
+        }
+
+        public void removeBorder(){
+            setBorder(null);
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
             if(modePlacement){
-                afficherMessage("Veuillez d'abord poser la tuile actuel");
+                removeBorder();
+                modePlacement = false;
             }else{
                 if(tmp.getCarte() == Carte.Null){
+                    createBorder();
                     modePlacement = true;
                     game.placement(x, y, scale);
                 }else{

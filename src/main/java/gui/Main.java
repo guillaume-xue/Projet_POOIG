@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) throws InvocationTargetException, InterruptedException {
         //new Main();
-        new AffichageCarc(1280, 720, 50);
+        new AffichageCarc(1280, 720, 75, 4);
         /*SwingUtilities.invokeAndWait(
             new Runnable(){
                 public void run(){

@@ -95,10 +95,10 @@ public class CarteComplet {
         listDonnee.replace(SUD_OUEST, listDonnee.get(NORD_OUEST));
         listDonnee.replace(NORD_OUEST, tmp);
         increRota(-1);
-        System.out.println("G");
-        for(Map.Entry<DonneeCarte, PlateauContenu> entry : listDonnee.entrySet()){
+        //System.out.println("G");
+        /*for(Map.Entry<DonneeCarte, PlateauContenu> entry : listDonnee.entrySet()){
             System.out.println(entry.getKey() + " : " + entry.getValue());
-        }
+        }*/
     }
 
     /* Effectue la rotation vers la droite. */
@@ -116,10 +116,10 @@ public class CarteComplet {
         listDonnee.replace(SUD_OUEST, listDonnee.get(SUD_EST));
         listDonnee.replace(SUD_EST, tmp);
         increRota(1);
-        System.out.println("D");
-        for(Map.Entry<DonneeCarte, PlateauContenu> entry : listDonnee.entrySet()){
+        //System.out.println("D");
+        /*for(Map.Entry<DonneeCarte, PlateauContenu> entry : listDonnee.entrySet()){
             System.out.println(entry.getKey() + " : " + entry.getValue());
-        }
+        }*/
 
     }
 
@@ -161,8 +161,8 @@ public class CarteComplet {
     public boolean comparDG(CarteComplet carteBis){
         Map<DonneeCarte, PlateauContenu> tmp1 = getOuest();
         Map<DonneeCarte, PlateauContenu> tmp2 = carteBis.getEst();
-        affichage();
-        carteBis.affichage();
+        //affichage();
+        //carteBis.affichage();
         if(verifOther(tmp1.get(NORD_OUEST), tmp2.get(NORD_EST))
         && verifOther(tmp1.get(OUEST), tmp2.get(EST))
         && verifOther(tmp1.get(SUD_OUEST), tmp2.get(SUD_EST))){

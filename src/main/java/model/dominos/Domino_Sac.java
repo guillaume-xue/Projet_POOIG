@@ -27,5 +27,4 @@ public class Domino_Sac implements Sac {
     public boolean sacEmpty(){
         return taille != 0;
     }
-
 }

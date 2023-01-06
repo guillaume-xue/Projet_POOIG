@@ -66,12 +66,12 @@ public class Controler {
 
     public void domimosButtunPresed(){
         dominos.getTurnLeft().addActionListener(e -> {
-            dominos.getTuile().tournerGauche();
+            dominos.getTuile().turnLeft();
             dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
             dominos.repaint();
         });
         dominos.getTurnRight().addActionListener(e -> {
-            dominos.getTuile().tournerDroite();
+            dominos.getTuile().turnRight();
             dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
             dominos.repaint();
         });

@@ -28,10 +28,10 @@ public class Jeu_Dominos_Terminal {
         System.out.println("\"d\" pour tourner à droite ou \"g\" pour tourner à gauche :");
         str = scanner.nextLine();
         if(str.equals("d")){
-            this.tuile.tournerDroite();
+            this.tuile.turnRight();
             this.tuile.affiche();
         }else if(str.equals("g")){
-            this.tuile.tournerGauche();
+            this.tuile.turnLeft();
             this.tuile.affiche();
         }else{
             System.out.println("Valeur non reconnu");

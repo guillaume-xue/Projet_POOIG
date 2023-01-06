@@ -1,9 +1,9 @@
 package model;
 
 import gui.Menu;
+import gui.carcassonne.AffGestionTuile;
+import gui.carcassonne.AffichageCarc;
 import gui.dominos.Jeu_Dominos;
-import model.carcassonne.AffGestionTuile;
-import model.carcassonne.AffichageCarc;
 import model.carcassonne.Piece.DonneeCarte;
 import model.carcassonne.Plateau.Game;
 
@@ -142,7 +142,7 @@ public class Controler {
                 agt.nextMove();
             }
         );
-        agt.getJO().addActionListener(
+        agt.getJSO().addActionListener(
             e -> {
                 game.addPion(DonneeCarte.SUD_OUEST);
                 agt.nextMove();

@@ -3,6 +3,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
 
+import gui.carcassonne.AffichageCarc;
 import model.carcassonne.*;
 public class Main {
 

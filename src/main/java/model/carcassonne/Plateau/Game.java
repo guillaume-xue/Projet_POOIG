@@ -4,9 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.carcassonne.AffGestionTuile;
+import gui.carcassonne.AffichageCarc;
 import model.Controler;
-import model.carcassonne.AffGestionTuile;
-import model.carcassonne.AffichageCarc;
 import model.carcassonne.Piece.CarteComplet;
 import model.carcassonne.Piece.DonneeCarte;
 import model.carcassonne.Piece.SacCarte;

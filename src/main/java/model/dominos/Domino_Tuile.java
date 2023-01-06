@@ -15,12 +15,8 @@ public class Domino_Tuile implements Tuile {
         }
     }
 
-    public Domino_Tuile(int [] t1, int [] t2, int [] t3, int [] t4){
-        tuile = new int[][]{t1, t2, t3, t4};
-    }
-
     @Override
-    public void tournerDroite(){
+    public void turnRight(){
         int[] tmp = tuile[3];
         for(int i=3;i>0;i--){
             tuile[i] = tuile[i-1];
@@ -29,7 +25,7 @@ public class Domino_Tuile implements Tuile {
     }
 
     @Override
-    public void tournerGauche(){
+    public void turnLeft(){
         int[] tmp = tuile[0];
         for(int i=1;i<4;i++){
             tuile[i-1] = tuile[i];

@@ -125,7 +125,7 @@ public class Domino_Plateau implements model.Plateau {
     }
 
     public boolean sacEmpty(){
-        return sac.getTaille() != 0;
+        return sac.sacEmpty();
     }
 
     public Domino_Tuile[][] getPlateau() {

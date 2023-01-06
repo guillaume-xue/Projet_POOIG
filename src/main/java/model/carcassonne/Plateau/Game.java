@@ -141,11 +141,23 @@ public class Game {
     /* Indique les coordonnées en X du pion */
     public int getX(DonneeCarte d) {
         switch (d) {
-            case NORD_EST, EST, SUD_EST:
+            case NORD_EST:
                 return scale - (scale / 3);
-            case NORD, CENTRE, SUD:
+            case EST:
+                return scale - (scale / 3);
+            case SUD_EST:
+                return scale - (scale / 3);
+            case NORD:
                 return scale / 3;
-            case NORD_OUEST, OUEST, SUD_OUEST:
+            case CENTRE:
+                return scale / 3;
+            case SUD:
+                return scale / 3;
+            case NORD_OUEST:
+                return 0;
+            case OUEST:
+                return 0;
+            case SUD_OUEST:
                 return 0;
             default:
                 return -1;
@@ -155,11 +167,23 @@ public class Game {
     /* Indique les coordonnées en Y du pion */
     public int getY(DonneeCarte d) {
         switch (d) {
-            case NORD_EST, NORD, NORD_OUEST:
+            case NORD_EST:
                 return 0;
-            case OUEST, CENTRE, EST:
+            case NORD:
+                return 0;
+            case NORD_OUEST:
+                return 0;
+            case OUEST:
                 return scale / 3;
-            case SUD_EST, SUD, SUD_OUEST:
+            case CENTRE:
+                return scale / 3;
+            case EST:
+                return scale / 3;
+            case SUD_EST:
+                return scale - (scale / 3);
+            case SUD:
+                return scale - (scale / 3);
+            case SUD_OUEST:
                 return scale - (scale / 3);
             default:
                 return -1;

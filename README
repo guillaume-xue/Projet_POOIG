@@ -1,0 +1,3 @@
+Positionnement : cd (...)/Projet_POOIG/src/main/java
+Compilation : javac gui/*.java
+Lancement : java gui.Main

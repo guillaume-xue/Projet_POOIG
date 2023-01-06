@@ -76,8 +76,6 @@ public class AffichageCarc extends JFrame{
     public void tuileCentrale(){
         tab[getMilieuY()][getMilieuX()].add(new SacCarteAff(getMilieuY(), getMilieuX()));
         caseDispo(getMilieuY(), getMilieuX());
-        //System.out.println("Centre");
-        //game.getPP().affichage();
         game.prochainTour();
     }
 
@@ -131,17 +129,6 @@ public class AffichageCarc extends JFrame{
 
     }
 
-    /* Empêche tout autre action après qu'on ait séléctionné
-     * l'emplacement où l'on veut poser la tuile (sauf si on l'annule).
-     */
-    public void setModeMouv(boolean b){
-        modePlacement = b;
-    }
-
-    public boolean getModeMouv(){
-        return modePlacement;
-    }
-
     public void addPionOnBoard(int x, int y, String s, DonneeCarte d){
         tab[y][x].removeAll();;
         tab[y][x].add(new SacCarteAff(y, x, s, d));
@@ -150,12 +137,18 @@ public class AffichageCarc extends JFrame{
         repaint();
     }
 
+    /* Empêche tout autre action après qu'on ait séléctionné
+     * l'emplacement où l'on veut poser la tuile (sauf si on l'annule).
+     */
+    public void setModeMouv(boolean b){modePlacement = b;}
+    public boolean getModeMouv(){return modePlacement;}
+
     public class SacCarteAff extends JPanel implements MouseInputListener{
         int x, y, width, height;
         CarteComplet tmp;
         String location;
 
-        /* Création graphique de la tuile. */
+        /* Ajout de la tuile. */
         SacCarteAff(int y, int x){
             tmp = game.getPP();
             String s = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + tmp.getCarte().toString() + tmp.getRot() + ".png";
@@ -175,7 +168,7 @@ public class AffichageCarc extends JFrame{
             }
         }
 
-        /* Création graphique de la tuile. */
+        /* Ajout de la tuile. fusionnée avec le pion */
         SacCarteAff(int y, int x, String couleur, DonneeCarte d){
             tmp = game.getPP();
             String s = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + tmp.getCarte().toString() + tmp.getRot() + ".png";
@@ -200,7 +193,7 @@ public class AffichageCarc extends JFrame{
             }
         }
 
-        /* Création graphique de la tuile dit neutre. */
+        /* Ajout de la tuile dit neutre. */
         SacCarteAff(int y, int x, boolean b){
             tmp = new CarteComplet(Carte.Null);
             this.x = x;
@@ -225,6 +218,7 @@ public class AffichageCarc extends JFrame{
 
         }
 
+        /* Création de la tuile fusionnée avec le pion */
         public BufferedImage fusion(BufferedImage img1, BufferedImage img2, DonneeCarte d) throws IOException{
             BufferedImage newImage = new BufferedImage(scale, scale, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = newImage.createGraphics();
@@ -235,18 +229,12 @@ public class AffichageCarc extends JFrame{
 
         }
 
-        public CarteComplet getCarteComplet(){
-            return tmp;
-        }
-
+        public CarteComplet getCarteComplet(){return tmp;}
         public void createBorder(){
             Border bord = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED);
             setBorder(bord);
         }
-
-        public void removeBorder(){
-            setBorder(null);
-        }
+        public void removeBorder(){setBorder(null);}
 
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -266,40 +254,17 @@ public class AffichageCarc extends JFrame{
         }
 
         @Override
-        public void mousePressed(MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
+        public void mousePressed(MouseEvent e){}
         @Override
-        public void mouseReleased(MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
+        public void mouseReleased(MouseEvent e){}
         @Override
-        public void mouseEntered(MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
+        public void mouseEntered(MouseEvent e){}
         @Override
-        public void mouseExited(MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
+        public void mouseExited(MouseEvent e){}
         @Override
-        public void mouseDragged(MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
-
+        public void mouseDragged(MouseEvent e){}
         @Override
-        public void mouseMoved(MouseEvent e) {
-            // TODO Auto-generated method stub
-            
-        }
+        public void mouseMoved(MouseEvent e){}
         
     }
 
@@ -315,18 +280,5 @@ public class AffichageCarc extends JFrame{
     public void afficherMessage(String s){
         JOptionPane.showMessageDialog(null, s);
     }
-    /*@Override
-    public void mouseClicked(MouseEvent e) {
-        int xPos = (e.getXOnScreen() - getX());
-        int yPos = (e.getYOnScreen() - getY() - getInsets().top);
-        xPos = xPos - (xPos%50);
-        yPos = yPos - (yPos%50);
-        jpanel.add(new SacCarteAff(xPos, yPos));
-        //jpanel.repaint();
-        invalidate();
-        validate();
-        repaint();
-        
-    }*/
 
 }

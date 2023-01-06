@@ -4,8 +4,8 @@ import java.util.Stack;
 
 public class Domino_Sac {
 
-    private Stack<Domino_Tuile> sac;
-    private static int taille;
+    private final Stack<Domino_Tuile> sac;
+    private int taille;
 
     public Domino_Sac(int taille){
         this.sac = new Stack<>();
@@ -15,7 +15,16 @@ public class Domino_Sac {
         }
     }
 
-    public Domino_Tuile getSac() {
+    public Domino_Tuile nextTuile() {
+        taille--;
         return sac.pop();
+    }
+
+    public boolean sacVide(){
+        return taille == 0;
+    }
+
+    public int getTaille() {
+        return taille;
     }
 }

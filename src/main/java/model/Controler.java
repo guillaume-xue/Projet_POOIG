@@ -25,18 +25,32 @@ public class Controler {
     }
 
     public void domimosButtunPresed(){
+
         dominos.getTurnLeft().addActionListener(e -> {
             dominos.getTuile().tournerGauche();
-            System.out.println(dominos.getTuile());
-            dominos.getAfficheTuile().miseAJourTuile(dominos.getTuile().toString());
+            dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
             dominos.repaint();
         });
         dominos.getTurnRight().addActionListener(e -> {
             dominos.getTuile().tournerDroite();
-            System.out.println(dominos.getTuile());
-            dominos.getAfficheTuile().miseAJourTuile(dominos.getTuile().toString());
+            dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
             dominos.repaint();
         });
+        dominos.getSubmit().addActionListener(e -> {
+            if(dominos.getPlateau().sacEmpty() && dominos.getAffPlateau().addTuile(dominos.getTuile())){
+                dominos.setTuile(dominos.getPlateau().nextTuile());
+                dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
+                dominos.repaint();
+            }
+        });
+        dominos.getSkip().addActionListener(e -> {
+            if(!dominos.getPlateau().sacEmpty()){
+                dominos.setTuile(dominos.getPlateau().nextTuile());
+                dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
+                dominos.repaint();
+            }
+        });
+
     }
 
 }

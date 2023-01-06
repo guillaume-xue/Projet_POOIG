@@ -13,11 +13,12 @@ public class Jeu_Dominos extends JFrame {
     private JPanel contPlateau;
     private JPanel contSelect;
     private JPanel tuileSelect;
-    private JButton turnLeft,turnRight;
+    private JButton turnLeft,turnRight,submit,skip;
     private Domino_Tuile tuile;
     private Domino_Plateau plateau;
     private Controler controler;
-    private TuileDominos afficheTuile;
+    private TuileDominos selectTuile;
+    private Plateau affPlateau;
 
     public Jeu_Dominos(){
 
@@ -28,7 +29,7 @@ public class Jeu_Dominos extends JFrame {
         this.setVisible(true);
 
         this.contSelect = new JPanel();
-        this.contSelect.setLayout(new GridLayout(2,1));
+        this.contSelect.setLayout(new GridLayout(3,1));
         this.contSelect.setBackground(new Color(213, 213, 213));
         this.contSelect.setPreferredSize(new Dimension(400,0));
         this.contSelect.setBorder(BorderFactory.createMatteBorder(0,1,0,0,Color.black));
@@ -48,11 +49,13 @@ public class Jeu_Dominos extends JFrame {
         this.turnLeft = new JButton(iconLeft);
         this.tuileSelect.add(turnLeft);
 
-        this.tuile = new Domino_Tuile();
-        this.afficheTuile = new TuileDominos(this.tuile.toString());
-        this.tuileSelect.add(this.afficheTuile);
+        this.plateau = new Domino_Plateau(5);
 
-        this.plateau = new Domino_Plateau(10);
+        this.tuile = plateau.nextTuile();
+        this.selectTuile = new TuileDominos(this.tuile.toString());
+        this.selectTuile.setBorder(BorderFactory.createLineBorder(Color.black,3));
+        this.selectTuile.setPreferredSize(new Dimension(250,250));
+        this.tuileSelect.add(this.selectTuile);
 
         ImageIcon iconRight = new ImageIcon("src/main/resources/dominos/turnright.png");
         this.turnRight = new JButton(iconRight);
@@ -60,50 +63,86 @@ public class Jeu_Dominos extends JFrame {
 
         this.contSelect.add(tuileSelect);
 
-        JButton submit = new JButton("validé");
-        submit.setPreferredSize(new Dimension(200,100));
+        this.submit = new JButton("validé");
+        this.submit.setPreferredSize(new Dimension(200,100));
         this.contSelect.add(submit);
 
-        this.contPlateau.add(new Plateau());
+        this.skip = new JButton("Skip");
+        this.skip.setPreferredSize(new Dimension(200,100));
+        this.contSelect.add(skip);
+
+        this.affPlateau = new Plateau();
+        this.contPlateau.add(affPlateau);
 
         this.controler.domimosButtunPresed();
     }
 
     public class Plateau extends JPanel implements MouseInputListener{
 
-        private int etat;
-        private int xClick, yClick;
-        private int xOnScreen, yOnScreen;
+        private int xClick,yClick;
+        private int lastClick;
+        private JPanel[] affTuile;
 
         public Plateau(){
-
-            this.etat = 0;
-            this.setBounds(100,100,1000,1000);
+            this.lastClick = 0;
+            this.affTuile = new JPanel[plateau.getSize()*plateau.getSize()];
+            this.setBounds(100,100,600,600);
             this.setLayout(new GridLayout(plateau.getSize(),plateau.getSize()));
             this.setBackground(Color.white);
             this.addMouseListener(this);
             this.addMouseMotionListener(this);
-            plateau.addTuile(5,5,tuile);
+            miseAJour();
+        }
 
+        public void selectTuile(){
+            this.removeAll();
+            int n = this.xClick + this.yClick * plateau.getSize();
+            this.affTuile[lastClick].setBorder(BorderFactory.createLineBorder(Color.black,0));
+            this.affTuile[n].setBorder(BorderFactory.createLineBorder(Color.black,3));
+            int k = 0;
+            for(int i=1;i<plateau.getPlateau().length-1;i++){
+                for(int j=1;j<plateau.getPlateau()[i].length-1;j++){
+                    this.add(this.affTuile[k++]);
+                }
+            }
+            repaint();
+        }
+
+        public boolean addTuile(Domino_Tuile t){
+            if(plateau.addVerif(yClick+1,xClick+1,t)){
+                this.removeAll();
+                plateau.addTuile(yClick+1,xClick+1,t);
+                miseAJour();
+                repaint();
+                return true;
+            }
+            return false;
+        }
+
+        public void miseAJour(){
+            int k = 0;
             for(int i=1;i<plateau.getPlateau().length-1;i++){
                 for(int j=1;j<plateau.getPlateau()[i].length-1;j++){
                     if(plateau.getPlateau()[i][j] != null){
-                        this.add(new TuileDominos(plateau.getPlateau()[i][j].toString()));
+                        this.affTuile[k] = new TuileDominos(plateau.getPlateau()[i][j].toString());
                     }else{
-                        this.add(new JLabel());
+                        JPanel p = new JPanel();
+                        p.add(new JLabel());
+                        this.affTuile[k] = p;
                     }
+                    this.add(this.affTuile[k++]);
                 }
             }
-
         }
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            this.etat++;
-            this.xClick = getX();
-            this.yClick = getY();
-            this.xOnScreen = e.getXOnScreen();
-            this.yOnScreen = e.getYOnScreen();
+            this.xClick = e.getX()/(600/plateau.getSize());
+            System.out.println(xClick);
+            this.yClick = e.getY()/(600/plateau.getSize());
+            System.out.println(yClick);
+            selectTuile();
+            this.lastClick = this.xClick + this.yClick * plateau.getSize();
         }
 
         @Override
@@ -133,9 +172,7 @@ public class Jeu_Dominos extends JFrame {
 
         @Override
         public void mouseMoved(MouseEvent e) {
-            if(this.etat % 2 != 0) {
-                this.setLocation(this.xClick + e.getXOnScreen() - this.xOnScreen,this.yClick + e.getYOnScreen() - this.yOnScreen);
-            }
+
         }
     }
 
@@ -145,8 +182,6 @@ public class Jeu_Dominos extends JFrame {
 
         public TuileDominos(String t){
             this.num = new JLabel[25];
-            this.setPreferredSize(new Dimension(100,100));
-            this.setBorder(BorderFactory.createLineBorder(Color.black,3));
             this.setBackground(Color.LIGHT_GRAY);
             this.setLayout(new GridLayout(5,5));
 
@@ -167,7 +202,6 @@ public class Jeu_Dominos extends JFrame {
                 this.add(num[i]);
             }
         }
-
     }
 
 
@@ -180,12 +214,32 @@ public class Jeu_Dominos extends JFrame {
         return turnRight;
     }
 
+    public JButton getSubmit() {
+        return submit;
+    }
+
+    public JButton getSkip() {
+        return skip;
+    }
+
     public Domino_Tuile getTuile() {
         return tuile;
     }
 
-    public TuileDominos getAfficheTuile() {
-        return afficheTuile;
+    public TuileDominos getSelectTuile() {
+        return selectTuile;
+    }
+
+    public Plateau getAffPlateau() {
+        return affPlateau;
+    }
+
+    public Domino_Plateau getPlateau() {
+        return plateau;
+    }
+
+    public void setTuile(Domino_Tuile tuile) {
+        this.tuile = tuile;
     }
 
     public static void main(String[] args) {

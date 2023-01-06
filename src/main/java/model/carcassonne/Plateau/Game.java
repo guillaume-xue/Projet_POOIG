@@ -33,17 +33,19 @@ public class Game {
         sac = new SacCarte();
         prochaineTuile();
         controler = new Controler(aff, agt, this);
-
         controler.carcassonneButtunPresed();
+    }
 
-        //agt.nextTuile(prochainePioche, prochainePioche.getRot());
+    public void placement(int x, int y, int scale){
+        this.x = x;
+        this.y = y;
+        this.scale = scale;
     }
 
     /* Met à jour la prochaine tuile pioché et actualise
      * la fenêtre de l'éditeur.
      */
     public void prochainTour(){
-
         if(!finJeu()){
             increCompteur();
             prochaineTuile();
@@ -52,21 +54,6 @@ public class Game {
             aff.afficherMessage("La partie est terminé");
         }
 
-    }
-
-    /* Pioche la prochaine tuile. */
-    public void prochaineTuile(){
-        prochainePioche = sac.getSac().pop();
-    }
-
-    public CarteComplet getPP(){
-        return prochainePioche;
-    }
-
-    public void placement(int x, int y, int scale){
-        this.x = x;
-        this.y = y;
-        this.scale = scale;
     }
 
     /* Importe les 4 tuiles autour de l'emplacement séléctionner
@@ -106,16 +93,6 @@ public class Game {
         return false;
     }
 
-    public int getX(){
-        return x;
-    }
-    
-    public int getY(){
-        return y;
-    }
-
-    //public boolean validationPos()
-
     /* Renvoie la tuile actuel dans la pioche
      * puis en repioche une.
      */
@@ -146,14 +123,6 @@ public class Game {
         }
     }
 
-    public Joueur joueurAct(){
-        return listeJ.get(compteur);
-    }
-
-    public void increCompteur(){
-        compteur = (compteur+1)%listeJ.size();
-    }
-
     public void addPion(DonneeCarte d){
         if(listeJ.get(compteur).pionDispo()){
             listeJ.get(compteur).addPionOnBoard(d, x, y);
@@ -182,6 +151,19 @@ public class Game {
         }
     }
 
+    /* Pioche la prochaine tuile. */
+    public void prochaineTuile(){
+        prochainePioche = sac.getSac().pop();
+    }
+    
+    public void increCompteur(){
+        compteur = (compteur+1)%listeJ.size();
+    } 
+
+    public CarteComplet getPP(){return prochainePioche;}     
+    public Joueur joueurAct(){return listeJ.get(compteur);}
+    public int getX(){return x;}
+    public int getY(){return y;}
     public void setControle(Controler controler){this.controler = controler;}
     public Controler getControle(){return controler;}
 }

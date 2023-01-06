@@ -24,25 +24,15 @@ public class Joueur {
         }
     }
 
-    public String getColorName(){
-        return s;
-    }
-
-    public Color getColor(){
-        return c;
-    }
-
-    public void usePion(){
-        compteur--;
-    }
-
-    public boolean pionDispo(){
-        return compteur>0;
-    }
-
     public void addPionOnBoard(DonneeCarte d, int x, int y){
         liste.get(compteur).majPion(d, x, y);
         usePion();
     }
+
+    public String getColorName(){return s;}
+    public Color getColor(){return c;}
+    public void usePion(){compteur--;}
+    public boolean pionDispo(){return compteur>0;}
+
 }
 

@@ -6,19 +6,14 @@ import javax.swing.JMenuBar;
 
 import javax.swing.JPanel;
 
-import model.Controler;
 import model.carcassonne.Piece.CarteComplet;
-import model.carcassonne.Piece.DonneeCarte;
 import model.carcassonne.Pion.Joueur;
 import model.carcassonne.Plateau.Game;
-
-import java.awt.event.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -47,7 +42,6 @@ public class AffGestionTuile extends JFrame {
         rotGauche = new JButton("Rotation Gauche");
         valider = new JButton("Valider");
         rotDroite = new JButton("Rotation Droite");
-        //annuler = new JButton("Annuler");
         repiocher = new JButton("Repiocher");
         boutonTuile(true);
 
@@ -55,12 +49,9 @@ public class AffGestionTuile extends JFrame {
         skip = new JButton("Skip");
         boutonPion(false);
 
-
-
         menu.add(rotGauche);
         menu.add(valider);
         menu.add(rotDroite);
-        //menu.add(annuler);
         menu.add(repiocher);
         menu.add(poser);
         menu.add(skip);
@@ -68,8 +59,6 @@ public class AffGestionTuile extends JFrame {
 
         imagePane = new ImagePane();
         setContentPane(imagePane);
-
-        
 
         pack();
         setVisible(true);
@@ -87,7 +76,6 @@ public class AffGestionTuile extends JFrame {
         rotGauche.setEnabled(b);
         valider.setEnabled(b);
         rotDroite.setEnabled(b);
-        //annuler.setEnabled(b);
         repiocher.setEnabled(b);
     }
 
@@ -127,27 +115,11 @@ public class AffGestionTuile extends JFrame {
         repaint();
     }
 
-    /*public void changeCarte(CarteComplet carte){
-        String s = "src/main/resources/modeleCarte/" + carte.getCarte().toString() + "0.png";           
-            try {
-                //ImageIcon fichier = new ImageIcon(s);
-                BufferedImage fichier = ImageIO.read(new File(s));
-                imagePane.add(new JLabel(new ImageIcon(fichier)));
-                invalidate();
-                validate();
-                repaint();
-            } catch (Exception e) {
-                System.out.println(e);
-                System.out.println(s);
-            }
-    }*/
-
     /* Affichage de la prochaine tuile dans cette fenêtre. */
     public void nextTuile(CarteComplet s, int rot){
         carte = s;
         String m = "Projet_POOIG\\src\\main\\resources\\modeleCarte\\" + s.getCarte().toString() + rot + ".png";   
         try {
-            //ImageIcon fichier = new ImageIcon(s);
             BufferedImage fichier = ImageIO.read(new File(m));
             fichier = aff.resizeImage(fichier, 250, 250);
             imagePane.removeAll();
@@ -195,10 +167,8 @@ public class AffGestionTuile extends JFrame {
     public JButton getAnnuler(){return annuler;}
     public JLabel getJLabel(){return jlabel;}
     public JMenuBar getMenuBis(){return menuBis;}
-
-
-
     public CarteComplet getCarteComplet(){return carte;}
+    
     private class ImagePane extends JPanel{
 
         ImagePane(){

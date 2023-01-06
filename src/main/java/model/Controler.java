@@ -76,7 +76,7 @@ public class Controler {
     public void carcassonneButtunPresed(){
         agt.getRotG().addActionListener(
             e -> {
-                agt.getCarteComplet().rotationGauche();
+                agt.getCarteComplet().tournerGauche();
                 agt.nextTuile(agt.getCarteComplet(), agt.getCarteComplet().getRot());
             }
         );
@@ -95,7 +95,7 @@ public class Controler {
         );
         agt.getRotD().addActionListener(
             e -> {
-                agt.getCarteComplet().rotationDroite();
+                agt.getCarteComplet().tournerDroite();
                 agt.nextTuile(agt.getCarteComplet(), agt.getCarteComplet().getRot());
             }
         );

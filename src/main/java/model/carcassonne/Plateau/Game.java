@@ -33,6 +33,9 @@ public class Game {
         sac = new SacCarte();
         prochaineTuile();
         controler = new Controler(aff, agt, this);
+
+        controler.carcassonneButtunPresed();
+
         //agt.nextTuile(prochainePioche, prochainePioche.getRot());
 
     }
@@ -180,5 +183,6 @@ public class Game {
         }
     }
 
+    public void setControle(Controler controler){this.controler = controler;}
     public Controler getControle(){return controler;}
 }

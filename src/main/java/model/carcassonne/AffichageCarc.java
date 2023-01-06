@@ -62,8 +62,8 @@ public class AffichageCarc extends JFrame{
         gestion = new AffGestionTuile(this);
         game = new Game(this, gestion, nbJoueur);
         gestion.setGame(game);
-        gestion.setControler(game.getControle());
-        control = game.getControle();
+
+
 
 
         

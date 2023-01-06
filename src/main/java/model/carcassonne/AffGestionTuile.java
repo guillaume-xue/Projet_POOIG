@@ -32,7 +32,7 @@ public class AffGestionTuile extends JFrame {
     private Game game;
     private JLabel jlabel;
     private JMenuBar menu, menuBis;
-    private Controler control;
+
 
     /* Créaction du panneau en charge
      * de la tuile avant de la poser
@@ -69,8 +69,8 @@ public class AffGestionTuile extends JFrame {
         imagePane = new ImagePane();
         setContentPane(imagePane);
 
-        control.carcassonneButtunPresed();
         
+
         pack();
         setVisible(true);
     }
@@ -170,8 +170,6 @@ public class AffGestionTuile extends JFrame {
         this.game = game;
     }
 
-    public void setControler(Controler control){this.control = control;}
-
     public void affJoueur(Joueur j){
         jlabel = new JLabel("Joueur actuel : " + j.getColorName());
         jlabel.setBounds(0, 0, 500, 500);
@@ -197,6 +195,8 @@ public class AffGestionTuile extends JFrame {
     public JButton getAnnuler(){return annuler;}
     public JLabel getJLabel(){return jlabel;}
     public JMenuBar getMenuBis(){return menuBis;}
+
+
 
     public CarteComplet getCarteComplet(){return carte;}
     private class ImagePane extends JPanel{

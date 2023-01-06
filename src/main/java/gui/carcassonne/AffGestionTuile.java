@@ -122,7 +122,7 @@ public class AffGestionTuile extends JFrame {
     /* Affichage de la prochaine tuile dans cette fenêtre. */
     public void nextTuile(CarteComplet s, int rot) {
         carte = s;
-        String m = "Projet_POOIG/src/main/resources/modeleCarte/" + s.getCarte().toString() + rot + ".png";
+        String m = "src/main/resources/modeleCarte/" + s.getCarte().toString() + rot + ".png";
         try {
             BufferedImage fichier = ImageIO.read(new File(m));
             fichier = aff.resizeImage(fichier, 250, 250);

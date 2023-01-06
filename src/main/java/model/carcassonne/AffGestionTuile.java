@@ -68,6 +68,9 @@ public class AffGestionTuile extends JFrame {
 
         imagePane = new ImagePane();
         setContentPane(imagePane);
+
+        control.carcassonneButtunPresed();
+        
         pack();
         setVisible(true);
     }

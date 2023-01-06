@@ -24,6 +24,8 @@ public class Jeu_Dominos_IG extends JFrame {
 
         this.controler = new Controler(this);   // control les boutons du jeu
 
+        this.plateau = new Domino_Plateau(5);
+
         this.setSize(1200, 800);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
@@ -77,7 +79,6 @@ public class Jeu_Dominos_IG extends JFrame {
         this.skip.setPreferredSize(new Dimension(200,100));
         this.contSelect.add(skip);
 
-        this.plateau = new Domino_Plateau(5);
         this.affPlateau = new Plateau_IG();
         this.contPlateau.add(affPlateau);
 

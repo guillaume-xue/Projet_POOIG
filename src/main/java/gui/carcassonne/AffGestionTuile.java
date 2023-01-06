@@ -28,12 +28,12 @@ public class AffGestionTuile extends JFrame {
     private JLabel jlabel;
     private JMenuBar menu, menuBis;
 
-
-    /* Créaction du panneau en charge
+    /*
+     * Créaction du panneau en charge
      * de la tuile avant de la poser
      * sur le plateau.
      */
-    AffGestionTuile(AffichageCarc aff){
+    AffGestionTuile(AffichageCarc aff) {
         this.aff = aff;
         setTitle("Editeur");
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -64,7 +64,8 @@ public class AffGestionTuile extends JFrame {
         setVisible(true);
     }
 
-    public void nextMove(){
+    /* Accède au prochain tour */
+    public void nextMove() {
         changeMenu(menu);
         game.prochainTour();
         aff.setModeMouv(false);
@@ -72,19 +73,22 @@ public class AffGestionTuile extends JFrame {
         boutonPion(false);
     }
 
-    public void boutonTuile(boolean b){
+    /* Affiche ou pas les boutons liés à la tuile */
+    public void boutonTuile(boolean b) {
         rotGauche.setEnabled(b);
         valider.setEnabled(b);
         rotDroite.setEnabled(b);
         repiocher.setEnabled(b);
     }
 
-    public void boutonPion(boolean b){
+    /* Bouton lié à la pose du pion */
+    public void boutonPion(boolean b) {
         poser.setEnabled(b);
         skip.setEnabled(b);
     }
 
-    public void initButPion(){
+    /* Initilisation des boutons de position pour le pion */
+    public void initButPion() {
         menuBis = new JMenuBar();
         jNo = new JButton("N-O");
         jN = new JButton("N");
@@ -108,7 +112,8 @@ public class AffGestionTuile extends JFrame {
         menuBis.add(annuler);
     }
 
-    public void changeMenu(JMenuBar j){
+    /* Switch entre les menus de bouton */
+    public void changeMenu(JMenuBar j) {
         setJMenuBar(j);
         invalidate();
         validate();
@@ -116,9 +121,9 @@ public class AffGestionTuile extends JFrame {
     }
 
     /* Affichage de la prochaine tuile dans cette fenêtre. */
-    public void nextTuile(CarteComplet s, int rot){
+    public void nextTuile(CarteComplet s, int rot) {
         carte = s;
-        String m = "Projet_POOIG/src/main/resources/modeleCarte/" + s.getCarte().toString() + rot + ".png";   
+        String m = "Projet_POOIG/src/main/resources/modeleCarte/" + s.getCarte().toString() + rot + ".png";
         try {
             BufferedImage fichier = ImageIO.read(new File(m));
             fichier = aff.resizeImage(fichier, 250, 250);
@@ -134,49 +139,104 @@ public class AffGestionTuile extends JFrame {
         }
     }
 
-    public ImagePane getImagePane(){
-        return imagePane;
-    }
-
-    public void setGame(Game game){
-        this.game = game;
-    }
-
-    public void affJoueur(Joueur j){
+    /* Affiche le joueur actuel */
+    public void affJoueur(Joueur j) {
         jlabel = new JLabel("Joueur actuel : " + j.getColorName());
         jlabel.setBounds(0, 0, 500, 500);
         add(jlabel);
         repaint();
     }
 
-    public JButton getRotG(){return rotGauche;}
-    public JButton getRotD(){return rotDroite;}
-    public JButton getValider(){return valider;}
-    public JButton getRepioche(){return repiocher;}
-    public JButton getPoser(){return poser;}
-    public JButton getSkip(){return skip;}
-    public JButton getJNO(){return jNo;}
-    public JButton getJN(){return jN;}
-    public JButton getJNE(){return jNe;}
-    public JButton getJE(){return jE;}
-    public JButton getJSE(){return jSe;}
-    public JButton getJS(){return jS;}
-    public JButton getJSO(){return jSo;}
-    public JButton getJO(){return jO;}
-    public JButton getJC(){return jC;}
-    public JButton getAnnuler(){return annuler;}
-    public JLabel getJLabel(){return jlabel;}
-    public JMenuBar getMenuBis(){return menuBis;}
-    public CarteComplet getCarteComplet(){return carte;}
-
-    private class ImagePane extends JPanel{
-
-        ImagePane(){
-            setPreferredSize(new Dimension(250, 250));
-        }
-        
+    public ImagePane getImagePane() {
+        return imagePane;
     }
 
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
+    public JButton getRotG() {
+        return rotGauche;
+    }
+
+    public JButton getRotD() {
+        return rotDroite;
+    }
+
+    public JButton getValider() {
+        return valider;
+    }
+
+    public JButton getRepioche() {
+        return repiocher;
+    }
+
+    public JButton getPoser() {
+        return poser;
+    }
+
+    public JButton getSkip() {
+        return skip;
+    }
+
+    public JButton getJNO() {
+        return jNo;
+    }
+
+    public JButton getJN() {
+        return jN;
+    }
+
+    public JButton getJNE() {
+        return jNe;
+    }
+
+    public JButton getJE() {
+        return jE;
+    }
+
+    public JButton getJSE() {
+        return jSe;
+    }
+
+    public JButton getJS() {
+        return jS;
+    }
+
+    public JButton getJSO() {
+        return jSo;
+    }
+
+    public JButton getJO() {
+        return jO;
+    }
+
+    public JButton getJC() {
+        return jC;
+    }
+
+    public JButton getAnnuler() {
+        return annuler;
+    }
+
+    public JLabel getJLabel() {
+        return jlabel;
+    }
+
+    public JMenuBar getMenuBis() {
+        return menuBis;
+    }
+
+    public CarteComplet getCarteComplet() {
+        return carte;
+    }
+
+    private class ImagePane extends JPanel {
+
+        ImagePane() {
+            setPreferredSize(new Dimension(250, 250));
+        }
+
+    }
 
 }

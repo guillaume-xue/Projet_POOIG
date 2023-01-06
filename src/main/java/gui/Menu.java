@@ -12,52 +12,51 @@ public class Menu extends JFrame {
     private Controler controler;
     private JPanel body, select, fond1, fond2;
 
-    public Menu(){
+    public Menu() {
 
         this.controler = new Controler(this);
 
         this.setTitle("Projet_POOIG");
-        this.setSize(800,600);
+        this.setSize(800, 600);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        //body
+        // body
         body = new JPanel();
         body.setBackground(new Color(229, 229, 229, 255));
         this.getContentPane().add(body);
 
-        //bouton Jouer
+        // bouton Jouer
         buttonJouer = new JButton("JOUER");
         body.add(buttonJouer);
-
-
 
         bouttonGame();
         bouttonJAI();
         bouttonJoueur();
 
-        //controleur
+        // controleur
         controler.menuButtonPresed();
     }
 
-    public void bouttonGame(){
+    public void bouttonGame() {
         select = new JPanel();
-        select.setLayout(new GridLayout(2,1));
+        select.setLayout(new GridLayout(2, 1));
         select.setBackground(new Color(229, 229, 229, 255));
 
-        //bouton dominos
+        // bouton dominos
         dominos = new JButton("Jeu_Dominos_IG");
         dominos.setVisible(true);
         select.add(dominos);
 
-        //bouton carcassonne
+        // bouton carcassonne
         carcassonne = new JButton("Carcassonne");
         carcassonne.setVisible(true);
         select.add(carcassonne);
     }
 
-    public void bouttonJAI(){
+    /* Création bouton joueur ou ia */
+    public void bouttonJAI() {
         fond1 = new JPanel();
-        fond1.setLayout(new GridLayout(2,1));
+        fond1.setLayout(new GridLayout(2, 1));
         fond1.setBackground(new Color(229, 229, 229, 255));
 
         joueurAndIa = new JButton("Joueur et IA");
@@ -70,9 +69,10 @@ public class Menu extends JFrame {
 
     }
 
-    public void bouttonJoueur(){
+    /* Bouton nombre de joueur */
+    public void bouttonJoueur() {
         fond2 = new JPanel();
-        fond2.setLayout(new GridLayout(3,1));
+        fond2.setLayout(new GridLayout(3, 1));
         fond2.setBackground(new Color(229, 229, 229, 255));
 
         j2 = new JButton("2 joueurs");
@@ -89,25 +89,58 @@ public class Menu extends JFrame {
 
     }
 
-    public void switchMenu(JPanel jp){
+    /* Switch entre les menu */
+    public void switchMenu(JPanel jp) {
         body.removeAll();
         body.add(jp);
         body.invalidate();
         body.validate();
-        
         body.repaint();
-        
+
     }
 
-    public JButton getButtonJouer(){return buttonJouer;}
-    public JButton getDominos(){return dominos;}
-    public JButton getCarcassonne(){return carcassonne;}
-    public JButton getJAI(){return joueurAndIa;}
-    public JButton getJoueur(){return joueur;}
-    public JButton getJ2(){return j2;}
-    public JButton getJ3(){return j3;}
-    public JButton getJ4(){return j4;}
-    public JPanel getFond1(){return fond1;}
-    public JPanel getFond2(){return fond2;}
-    public JPanel getSelect(){return select;}
+    /* Les getters */
+    public JButton getButtonJouer() {
+        return buttonJouer;
+    }
+
+    public JButton getDominos() {
+        return dominos;
+    }
+
+    public JButton getCarcassonne() {
+        return carcassonne;
+    }
+
+    public JButton getJAI() {
+        return joueurAndIa;
+    }
+
+    public JButton getJoueur() {
+        return joueur;
+    }
+
+    public JButton getJ2() {
+        return j2;
+    }
+
+    public JButton getJ3() {
+        return j3;
+    }
+
+    public JButton getJ4() {
+        return j4;
+    }
+
+    public JPanel getFond1() {
+        return fond1;
+    }
+
+    public JPanel getFond2() {
+        return fond2;
+    }
+
+    public JPanel getSelect() {
+        return select;
+    }
 }

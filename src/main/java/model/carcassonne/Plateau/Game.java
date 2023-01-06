@@ -26,7 +26,7 @@ public class Game {
     private int x, y, scale;
 
     /* Class en charge des tours de la partie. */
-    public Game(AffichageCarc aff, AffGestionTuile agt, int nbJoueur){
+    public Game(AffichageCarc aff, AffGestionTuile agt, int nbJoueur) {
         this.aff = aff;
         this.agt = agt;
         initJoueur(nbJoueur);
@@ -36,49 +36,51 @@ public class Game {
         controler.carcassonneButtunPresed();
     }
 
-    public void placement(int x, int y, int scale){
+    public void placement(int x, int y, int scale) {
         this.x = x;
         this.y = y;
         this.scale = scale;
     }
 
-    /* Met à jour la prochaine tuile pioché et actualise
+    /*
+     * Met à jour la prochaine tuile pioché et actualise
      * la fenêtre de l'éditeur.
      */
-    public void prochainTour(){
-        if(!finJeu()){
+    public void prochainTour() {
+        if (!finJeu()) {
             increCompteur();
             prochaineTuile();
             agt.nextTuile(prochainePioche, prochainePioche.getRot());
-        }else{
+        } else {
             aff.afficherMessage("La partie est terminé");
         }
 
     }
 
-    /* Importe les 4 tuiles autour de l'emplacement séléctionner
+    /*
+     * Importe les 4 tuiles autour de l'emplacement séléctionner
      * puis les envoie en comparaison pour détérminer si cette
      * position est valide pour la tuile en main.
      */
-    public boolean verifPosition(){
+    public boolean verifPosition() {
         boolean status = true;
-        if(aff.getCompo(x+1, y) != null){
-            if(!aff.getCompo(x+1, y).getCarteComplet().comparDG(prochainePioche)){
+        if (aff.getCompo(x + 1, y) != null) {
+            if (!aff.getCompo(x + 1, y).getCarteComplet().comparDG(prochainePioche)) {
                 status = false;
             }
         }
-        if(aff.getCompo(x-1, y) != null){
-           if(!prochainePioche.comparDG(aff.getCompo(x-1, y).getCarteComplet())){
-                status = false;
-           }
-        }
-        if(aff.getCompo(x, y-1) != null){
-            if(!aff.getCompo(x, y-1).getCarteComplet().comparHB(prochainePioche)){
+        if (aff.getCompo(x - 1, y) != null) {
+            if (!prochainePioche.comparDG(aff.getCompo(x - 1, y).getCarteComplet())) {
                 status = false;
             }
         }
-        if(aff.getCompo(x, y+1) != null){
-            if(!prochainePioche.comparHB(aff.getCompo(x, y+1).getCarteComplet())){
+        if (aff.getCompo(x, y - 1) != null) {
+            if (!aff.getCompo(x, y - 1).getCarteComplet().comparHB(prochainePioche)) {
+                status = false;
+            }
+        }
+        if (aff.getCompo(x, y + 1) != null) {
+            if (!prochainePioche.comparHB(aff.getCompo(x, y + 1).getCarteComplet())) {
                 status = false;
             }
         }
@@ -86,87 +88,115 @@ public class Game {
     }
 
     /* Le jeu s'arrête dès que la pioche est vide. */
-    private boolean finJeu(){
-        if(sac.getSac().size() == 0){
+    private boolean finJeu() {
+        if (sac.getSac().size() == 0) {
             return true;
         }
         return false;
     }
 
-    /* Renvoie la tuile actuel dans la pioche
+    /*
+     * Renvoie la tuile actuel dans la pioche
      * puis en repioche une.
      */
-    public void repiocher(){
+    public void repiocher() {
         sac.retourDansSac(prochainePioche);
         prochaineTuile();
         agt.nextTuile(prochainePioche, prochainePioche.getRot());
     }
 
     /* Initialise les pions de chaque joueurs */
-    public void initJoueur(int nbJ){
+    public void initJoueur(int nbJ) {
         compteur = -1;
         listeJ = new ArrayList<Joueur>();
         listeJ.add(new Joueur(10, Color.blue, "bleu"));
-        if(nbJ>1){
+        if (nbJ > 1) {
             listeJ.add(new Joueur(10, Color.yellow, "jaune"));
         }
-        if(nbJ>2){
+        if (nbJ > 2) {
             listeJ.add(new Joueur(10, Color.green, "vert"));
         }
-        if(nbJ>3){
+        if (nbJ > 3) {
             listeJ.add(new Joueur(10, Color.red, "rouge"));
         }
-        if(nbJ>4){
+        if (nbJ > 4) {
             listeJ.add(new Joueur(10, Color.gray, "gris"));
         }
-        if(nbJ>5){
+        if (nbJ > 5) {
             listeJ.add(new Joueur(10, Color.black, "noir"));
         }
     }
 
     /* Confirme l'ajout d'un pion sur le plateau */
-    public void addPion(DonneeCarte d){
-        if(listeJ.get(compteur).pionDispo()){
+    public void addPion(DonneeCarte d) {
+        if (listeJ.get(compteur).pionDispo()) {
             listeJ.get(compteur).addPionOnBoard(d, x, y);
             aff.addPionOnBoard(x, y, listeJ.get(compteur).getColorName(), d);
-        }else{
+        } else {
             aff.afficherMessage("Plus de pion disponible");
             agt.nextMove();
         }
     }
 
     /* Indique les coordonnées en X du pion */
-    public int getX(DonneeCarte d){
-        switch(d){
-            case NORD_EST, EST, SUD_EST : return scale-(scale/3);
-            case NORD, CENTRE , SUD : return scale/3;
-            case NORD_OUEST, OUEST, SUD_OUEST : return 0; 
-            default : return -1;
+    public int getX(DonneeCarte d) {
+        switch (d) {
+            case NORD_EST, EST, SUD_EST:
+                return scale - (scale / 3);
+            case NORD, CENTRE, SUD:
+                return scale / 3;
+            case NORD_OUEST, OUEST, SUD_OUEST:
+                return 0;
+            default:
+                return -1;
         }
     }
+
     /* Indique les coordonnées en Y du pion */
-    public int getY(DonneeCarte d){
-        switch(d){
-            case NORD_EST, NORD, NORD_OUEST : return 0;
-            case OUEST, CENTRE , EST : return scale/3;
-            case SUD_EST, SUD, SUD_OUEST : return scale-(scale/3); 
-            default : return -1;
+    public int getY(DonneeCarte d) {
+        switch (d) {
+            case NORD_EST, NORD, NORD_OUEST:
+                return 0;
+            case OUEST, CENTRE, EST:
+                return scale / 3;
+            case SUD_EST, SUD, SUD_OUEST:
+                return scale - (scale / 3);
+            default:
+                return -1;
         }
     }
 
     /* Pioche la prochaine tuile. */
-    public void prochaineTuile(){
+    public void prochaineTuile() {
         prochainePioche = sac.nextTuile();
     }
-    /* Permet de définir c'est le tour de quel joueur; */
-    public void increCompteur(){
-        compteur = (compteur+1)%listeJ.size();
-    } 
 
-    public CarteComplet getPP(){return prochainePioche;}     
-    public Joueur joueurAct(){return listeJ.get(compteur);}
-    public int getX(){return x;}
-    public int getY(){return y;}
-    public void setControle(Controler controler){this.controler = controler;}
-    public Controler getControle(){return controler;}
+    /* Permet de définir c'est le tour de quel joueur; */
+    public void increCompteur() {
+        compteur = (compteur + 1) % listeJ.size();
+    }
+
+    public CarteComplet getPP() {
+        return prochainePioche;
+    }
+
+    public Joueur joueurAct() {
+        return listeJ.get(compteur);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setControle(Controler controler) {
+        this.controler = controler;
+    }
+
+    public Controler getControle() {
+        return controler;
+    }
 }

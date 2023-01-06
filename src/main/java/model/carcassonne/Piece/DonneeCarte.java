@@ -10,5 +10,5 @@ public enum DonneeCarte {
     SUD_OUEST,
     NORD_OUEST,
     CENTRE;
-    
+
 }

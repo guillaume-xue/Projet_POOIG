@@ -3,8 +3,6 @@ package model.carcassonne.Piece;
 import static model.carcassonne.Plateau.PlateauContenu.CHATEAU;
 import static model.carcassonne.Plateau.PlateauContenu.ROUTE;
 
-
-
 import static model.carcassonne.Plateau.PlateauContenu.ABBAYE;
 import static model.carcassonne.Plateau.PlateauContenu.CHAMPS;
 import static model.carcassonne.Plateau.PlateauContenu.AUTRE;
@@ -13,7 +11,8 @@ import model.carcassonne.Plateau.PlateauContenu;
 
 public enum Carte {
 
-    // 72 carte, pour le mode a 4 joueur, format : type(quantité, NORD, EST, SUD, OUEST, NORD-EST, SUD-EST, SUD-OUEST, NORD-OUEST, CENTRE)
+    // 72 carte, pour le mode a 4 joueur, format : type(quantité, NORD, EST, SUD,
+    // OUEST, NORD-EST, SUD-EST, SUD-OUEST, NORD-OUEST, CENTRE)
 
     Null(0, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE, AUTRE),
     RouteIncurve(9, CHAMPS, CHAMPS, ROUTE, ROUTE, CHAMPS, CHAMPS, CHAMPS, CHAMPS, ROUTE),
@@ -40,22 +39,22 @@ public enum Carte {
     RouteCroisement(1, ROUTE, ROUTE, ROUTE, ROUTE, CHAMPS, CHAMPS, CHAMPS, CHAMPS, ROUTE),
     ChateauDiagSansRouteEtEmbleme(2, CHATEAU, CHAMPS, CHAMPS, CHATEAU, AUTRE, CHAMPS, AUTRE, CHATEAU, CHAMPS),
     ChateauCoteFaceAFace(3, CHAMPS, CHATEAU, CHAMPS, CHATEAU, AUTRE, AUTRE, AUTRE, AUTRE, CHAMPS);
-    
+
     // 102 carte, pour le mode a 6 joueur (à ajouter ultérieurement)
 
     private final PlateauContenu[] donnees;
     private final int montant;
 
-    Carte(int montant, PlateauContenu... plateau){
+    Carte(int montant, PlateauContenu... plateau) {
         this.montant = montant;
         this.donnees = plateau;
     }
 
-    public PlateauContenu[] getParamPlat(){
+    public PlateauContenu[] getParamPlat() {
         return donnees;
     }
 
-    public int getNbCopie(){
+    public int getNbCopie() {
         return montant;
     }
 

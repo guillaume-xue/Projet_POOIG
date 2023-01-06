@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.event.WindowEvent;
-
 import gui.Menu;
 import gui.carcassonne.AffGestionTuile;
 import gui.carcassonne.AffichageCarc;

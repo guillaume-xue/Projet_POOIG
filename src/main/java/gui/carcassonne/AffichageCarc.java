@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -36,8 +38,11 @@ public class AffichageCarc extends JFrame {
     private JPanel[][] tab;
     private int valXactu, valYactu;
 
+    private String absolutePath;
+
     /* Création du plateau */
     public AffichageCarc(int x, int y, int scale, int nbJoueur) {
+        path();
         this.scale = scale;
         dimension = new Dimension(((x / scale) * scale), ((y / scale) * scale));
         setSize(dimension);
@@ -61,6 +66,16 @@ public class AffichageCarc extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    /* Calcul le chemin absolu */
+    public void path(){
+        Path path = Paths.get("AffichageCarc.java").toAbsolutePath();
+        String[] parts = path.toString().split("/");
+        absolutePath = "";
+        for(int i=0; i<parts.length-2; i++){
+            absolutePath = absolutePath + parts[i] + "/";
+        }
     }
 
     /* Renvoie la position du milieu de terrain en Y */
@@ -156,6 +171,10 @@ public class AffichageCarc extends JFrame {
         return modePlacement;
     }
 
+    public String absoPath(){
+        return absolutePath;
+    }
+
     public class SacCarteAff extends JPanel implements MouseInputListener {
         private int x, y, width, height;
         private CarteComplet tmp;
@@ -163,7 +182,7 @@ public class AffichageCarc extends JFrame {
         /* Ajout de la tuile. */
         SacCarteAff(int y, int x) {
             tmp = game.getPP();
-            String s = "src/main/resources/modeleCarte/" + tmp.getCarte().toString() + tmp.getRot()
+            String s = absolutePath + "resources/modeleCarte/" + tmp.getCarte().toString() + tmp.getRot()
                     + ".png";
             this.x = x;
             this.y = y;
@@ -183,9 +202,9 @@ public class AffichageCarc extends JFrame {
         /* Ajout de la tuile. fusionnée avec le pion */
         SacCarteAff(int y, int x, String couleur, DonneeCarte d) {
             tmp = game.getPP();
-            String s = "src/main/resources/modeleCarte/" + tmp.getCarte().toString() + tmp.getRot()
+            String s = absolutePath + "resources/modeleCarte/" + tmp.getCarte().toString() + tmp.getRot()
                     + ".png";
-            String sbis = "src/main/resources/modeleCarte/" + couleur + ".png";
+            String sbis = absolutePath + "resources/modeleCarte/" + couleur + ".png";
             this.x = x;
             this.y = y;
             width = scale;
@@ -212,7 +231,7 @@ public class AffichageCarc extends JFrame {
             this.y = y;
             width = scale;
             height = scale;
-            String s = "src/main/resources/modeleCarte/" + tmp.getCarte().toString();
+            String s = absolutePath + "resources/modeleCarte/" + tmp.getCarte().toString();
             if (b) {
                 s += "0.png";
             } else {

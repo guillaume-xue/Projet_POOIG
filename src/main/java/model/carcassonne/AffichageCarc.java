@@ -25,6 +25,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.event.MouseInputListener;
 import java.awt.Image;
 
+import model.Controler;
 import model.carcassonne.Piece.*;
 import model.carcassonne.Plateau.Game;
 
@@ -37,6 +38,8 @@ public class AffichageCarc extends JFrame{
     private Game game;
 
     private JPanel[][] tab;
+
+    private Controler control;
 
     /* Création du plateau */
     public AffichageCarc(int x, int y, int scale, int nbJoueur){
@@ -59,6 +62,9 @@ public class AffichageCarc extends JFrame{
         gestion = new AffGestionTuile(this);
         game = new Game(this, gestion, nbJoueur);
         gestion.setGame(game);
+        gestion.setControler(game.getControle());
+        control = game.getControle();
+
 
         
         tuileCentrale();

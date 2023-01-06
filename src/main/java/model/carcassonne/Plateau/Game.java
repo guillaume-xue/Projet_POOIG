@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Controler;
 import model.carcassonne.AffGestionTuile;
 import model.carcassonne.AffichageCarc;
 import model.carcassonne.Piece.CarteComplet;
@@ -14,6 +15,7 @@ import model.carcassonne.Pion.Joueur;
 public class Game {
     private AffichageCarc aff;
     private AffGestionTuile agt;
+    private Controler controler;
 
     private SacCarte sac;
     private CarteComplet prochainePioche;
@@ -30,6 +32,7 @@ public class Game {
         initJoueur(nbJoueur);
         sac = new SacCarte();
         prochaineTuile();
+        controler = new Controler(aff, agt, this);
         //agt.nextTuile(prochainePioche, prochainePioche.getRot());
 
     }
@@ -176,4 +179,6 @@ public class Game {
             default : return -1;
         }
     }
+
+    public Controler getControle(){return controler;}
 }

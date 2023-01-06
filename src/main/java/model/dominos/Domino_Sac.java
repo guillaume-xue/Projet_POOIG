@@ -1,8 +1,10 @@
 package model.dominos;
 
+import model.Sac;
+
 import java.util.Stack;
 
-public class Domino_Sac {
+public class Domino_Sac implements Sac {
 
     private final Stack<Domino_Tuile> sac;
     private int taille;
@@ -15,16 +17,15 @@ public class Domino_Sac {
         }
     }
 
+    @Override
     public Domino_Tuile nextTuile() {
         taille--;
         return sac.pop();
     }
 
-    public boolean sacVide(){
-        return taille == 0;
+    @Override
+    public boolean sacEmpty(){
+        return taille != 0;
     }
 
-    public int getTaille() {
-        return taille;
-    }
 }

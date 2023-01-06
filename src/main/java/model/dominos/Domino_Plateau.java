@@ -1,6 +1,8 @@
 package model.dominos;
 
-public class Domino_Plateau implements model.Plateau {
+import model.Plateau;
+
+public class Domino_Plateau implements Plateau {
 
     private Domino_Tuile[][] plateau;
     private Domino_Sac sac;
@@ -67,25 +69,21 @@ public class Domino_Plateau implements model.Plateau {
         return true;
     }
 
-    @Override
     public boolean addVerifTop(int x, int y, Domino_Tuile tuile){
         if(plateau[x-1][y] == null) return true;
         return arrayEquals(tuile.tuile[0], plateau[x-1][y].tuile[2]);
     }
 
-    @Override
     public boolean addVerifRight(int x, int y, Domino_Tuile tuile){
         if(plateau[x][y+1] == null) return true;
         return arrayEquals(tuile.tuile[1], plateau[x][y+1].tuile[3]);
     }
 
-    @Override
     public boolean addVerifBottum(int x, int y, Domino_Tuile tuile){
         if(plateau[x+1][y] == null) return true;
         return arrayEquals(tuile.tuile[2], plateau[x+1][y].tuile[0]);
     }
 
-    @Override
     public boolean addVerifLeft(int x, int y, Domino_Tuile tuile){
         if(plateau[x][y-1] == null) return true;
         return arrayEquals(tuile.tuile[3], plateau[x][y-1].tuile[1]);
@@ -125,7 +123,7 @@ public class Domino_Plateau implements model.Plateau {
     }
 
     public boolean sacEmpty(){
-        return sac.getTaille() != 0;
+        return sac.sacEmpty();
     }
 
     public Domino_Tuile[][] getPlateau() {

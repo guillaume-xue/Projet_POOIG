@@ -24,7 +24,7 @@ public class Jeu_Dominos_Terminal {
         this.abandon = true;
     }
 
-    public void rotation(){
+    public void rotation(){     // Tourner la tuile vers là droite ou vers là gauche
         System.out.println("\"d\" pour tourner à droite ou \"g\" pour tourner à gauche :");
         str = scanner.nextLine();
         if(str.equals("d")){
@@ -39,7 +39,7 @@ public class Jeu_Dominos_Terminal {
         }
     }
 
-    public void valide(){
+    public void valide(){       // Placer la tuile sur le plateau aux coordonnées x, y
         try {
             System.out.println("Entrer un le coordonne x :");
             x = scanner.nextInt();
@@ -57,6 +57,9 @@ public class Jeu_Dominos_Terminal {
 
     }
 
+    /*
+        Les actions qu'on veut effectuer (tourner la tuile, poser la tuile, passer et abandonner la partie).
+     */
     public void action(){
         System.out.println("\"r\" pour rotation\n\"v\" pour valide\n\"p\" pour passer\n\"a\" pour abandon");
         str = scanner.nextLine();

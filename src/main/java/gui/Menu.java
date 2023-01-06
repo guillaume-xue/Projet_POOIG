@@ -45,7 +45,7 @@ public class Menu extends JFrame {
         select.setBackground(new Color(229, 229, 229, 255));
 
         //bouton dominos
-        dominos = new JButton("Jeu_Dominos");
+        dominos = new JButton("Jeu_Dominos_IG");
         dominos.setVisible(true);
         select.add(dominos);
 

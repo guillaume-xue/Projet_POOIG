@@ -5,14 +5,14 @@ import java.awt.event.WindowEvent;
 import gui.Menu;
 import gui.carcassonne.AffGestionTuile;
 import gui.carcassonne.AffichageCarc;
-import gui.dominos.Jeu_Dominos;
+import gui.dominos.Jeu_Dominos_IG;
 import model.carcassonne.Piece.DonneeCarte;
 import model.carcassonne.Plateau.Game;
 
 public class Controler {
 
     private Menu menu;
-    private Jeu_Dominos dominos;
+    private Jeu_Dominos_IG dominos;
     private AffichageCarc aff;
     private AffGestionTuile agt;
     private Game game;
@@ -20,7 +20,7 @@ public class Controler {
     public Controler(Menu menu){
         this.menu = menu;
     }
-    public Controler(Jeu_Dominos dominos){
+    public Controler(Jeu_Dominos_IG dominos){
         this.dominos = dominos;
     }
     public Controler(AffichageCarc aff, AffGestionTuile agt, Game game){
@@ -35,7 +35,7 @@ public class Controler {
         });
         menu.getDominos().addActionListener(e -> {
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {new Jeu_Dominos();}
+                public void run() {new Jeu_Dominos_IG();}
             });
         });
         menu.getCarcassonne().addActionListener(e -> {
@@ -68,17 +68,23 @@ public class Controler {
         dominos.getTurnLeft().addActionListener(e -> {
             dominos.getTuile().turnLeft();
             dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
+            dominos.invalidate();
+            dominos.validate();
             dominos.repaint();
         });
         dominos.getTurnRight().addActionListener(e -> {
             dominos.getTuile().turnRight();
             dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
+            dominos.invalidate();
+            dominos.validate();
             dominos.repaint();
         });
         dominos.getSubmit().addActionListener(e -> {
             if(dominos.getPlateau().sacEmpty() && dominos.getAffPlateau().addTuile(dominos.getTuile())){
                 dominos.setTuile(dominos.getPlateau().nextTuile());
                 dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
+                dominos.invalidate();
+                dominos.validate();
                 dominos.repaint();
             }
         });
@@ -86,6 +92,8 @@ public class Controler {
             if(!dominos.getPlateau().sacEmpty()){
                 dominos.setTuile(dominos.getPlateau().nextTuile());
                 dominos.getSelectTuile().miseAJourTuile(dominos.getTuile().toString());
+                dominos.invalidate();
+                dominos.validate();
                 dominos.repaint();
             }
         });

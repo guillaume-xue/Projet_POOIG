@@ -174,4 +174,14 @@ public class CarteComplet implements Tuile{
 
     public Carte getCarte(){return carte;}
     public int getRot(){return rotation;}
+
+    @Override
+    public void turnRight() {
+
+    }
+
+    @Override
+    public void turnLeft() {
+
+    }
 }

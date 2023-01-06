@@ -25,13 +25,16 @@ public class Domino_Plateau implements Plateau {
         return Domino_Tuile.espace(n);
     }
 
-    /* Affiche le Domino_Plateau sur le terminal avec les tuiles poser et les coordonnées. */
-    public void affiche(){
+    public void tiret(){
         String tiret = "";
         for(int i=0;i<12*(plateau.length-2);i++){
             tiret+="-";
         }
         System.out.println(tiret);
+    }
+
+    public void affiche(){      // Affiche le Domino_Plateau sur le terminal avec les tuiles poser et les coordonnées.
+        tiret();
         for(int i=1;i<plateau.length-1;i++){
             String l1 = "";
             String l2 = "";
@@ -59,35 +62,39 @@ public class Domino_Plateau implements Plateau {
             System.out.println(l4);
             System.out.println(l5);
         }
-        System.out.println(tiret);
+        tiret();
     }
 
-    public static boolean arrayEquals(int[] t1, int[] t2){
+    public static boolean arrayEquals(int[] t1, int[] t2){              // Vérifie que les deux bords des tuiles soit les mêmes
         for(int i=0;i<t1.length;i++){
             if(t1[2-i] != t2[i]) return false;
         }
         return true;
     }
 
-    public boolean addVerifTop(int x, int y, Domino_Tuile tuile){
+    public boolean addVerifTop(int x, int y, Domino_Tuile tuile){       // Vérifie le haut
         if(plateau[x-1][y] == null) return true;
         return arrayEquals(tuile.tuile[0], plateau[x-1][y].tuile[2]);
     }
 
-    public boolean addVerifRight(int x, int y, Domino_Tuile tuile){
+    public boolean addVerifRight(int x, int y, Domino_Tuile tuile){     // Vérifie la droite
         if(plateau[x][y+1] == null) return true;
         return arrayEquals(tuile.tuile[1], plateau[x][y+1].tuile[3]);
     }
 
-    public boolean addVerifBottum(int x, int y, Domino_Tuile tuile){
+    public boolean addVerifBottum(int x, int y, Domino_Tuile tuile){    // Vérifie le bas
         if(plateau[x+1][y] == null) return true;
         return arrayEquals(tuile.tuile[2], plateau[x+1][y].tuile[0]);
     }
 
-    public boolean addVerifLeft(int x, int y, Domino_Tuile tuile){
+    public boolean addVerifLeft(int x, int y, Domino_Tuile tuile){      // Vérifie la gauche
         if(plateau[x][y-1] == null) return true;
         return arrayEquals(tuile.tuile[3], plateau[x][y-1].tuile[1]);
     }
+
+    /*
+        Vérifie que toutes les conditions soient respectées (Tuile déjà présent, pas de Tuile autour et chiffre different).
+     */
 
     @Override
     public boolean addVerif(int x, int y, Domino_Tuile tuile){
@@ -100,7 +107,7 @@ public class Domino_Plateau implements Plateau {
                 return false;
             }else{
                 if(!(addVerifTop(x,y,tuile) && addVerifBottum(x,y,tuile) && addVerifLeft(x,y,tuile) && addVerifRight(x,y,tuile))){
-                    System.out.println("chiffre diff");
+                    System.out.println("Chiffre different.");
                     return false;
                 }
                 return true;
@@ -108,25 +115,25 @@ public class Domino_Plateau implements Plateau {
         }
     }
 
-    public void addTuile(int x, int y, Domino_Tuile tuile){
+    public void addTuile(int x, int y, Domino_Tuile tuile){             // Ajoute la Tuile sur le plateau aux positions x, y
         if(addVerif(x,y,tuile)){
             plateau[x][y] = tuile;
         }
     }
 
-    public Domino_Tuile nextTuile(){
+    public Domino_Tuile nextTuile(){                                    // Avoir la Tuile suivante
         return sac.nextTuile();
     }
 
-    public int getSize() {
+    public int getSize() {                                              // Avoir la taille du plateau
         return size;
     }
 
-    public boolean sacEmpty(){
+    public boolean sacEmpty(){                                          // Si le n'est pas vide
         return sac.sacEmpty();
     }
 
-    public Domino_Tuile[][] getPlateau() {
+    public Domino_Tuile[][] getPlateau() {                              // Avoir le plateau
         return plateau;
     }
 
